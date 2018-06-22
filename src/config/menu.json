@@ -1,0 +1,74 @@
+[
+    {
+        "type": "el-menu-item",
+        "icon": "el-icon-info",
+        "title": "网站说明",
+        "index": "0"
+    },
+    {
+        "type": "el-submenu",
+        "icon": "el-icon-download",
+        "title": "代币工具",
+        "index": "1",
+        "items" : [
+            {
+                "type": "el-menu-item",
+                "icon": "",
+                "title": "一键发币",
+                "index": "1-1"
+            },
+            {
+                "type": "el-menu-item",
+                "icon": "",
+                "title": "代币信息",
+                "index": "1-2"
+            },
+            {
+                "type": "el-menu-item",
+                "icon": "",
+                "title": "代币空投",
+                "index": "1-3"
+            }
+        ]
+    },
+    {
+        "type": "el-submenu",
+        "icon": "el-icon-tickets",
+        "title": "常用合约",
+        "index": "2",
+        "items" : [
+            {
+                "type": "el-menu-item",
+                "icon": "",
+                "title": "域名竞拍",
+                "index": "2-1"
+            }
+        ]
+    },
+    {
+        "type": "el-submenu",
+        "icon": "el-icon-document",
+        "title": "文档教程",
+        "index": "3",
+        "items" : [
+            {
+                "type": "el-menu-item",
+                "icon": "",
+                "title": "以太坊基础",
+                "index": "3-1"
+            },
+            {
+                "type": "el-menu-item",
+                "icon": "",
+                "title": "空投工具使用说明",
+                "index": "3-2"
+            }
+        ]
+    },
+    {
+        "type": "el-menu-item",
+        "icon": "el-icon-setting",
+        "title": "设置",
+        "index": "4"
+    }
+]
