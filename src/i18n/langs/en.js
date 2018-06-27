@@ -10,9 +10,10 @@ const en = {
     Transactions: 'Transactions',
     TxsPerDay: 'Tx Per Day',
     PlzInput: "Please Input...",
-    tbl_timestamp: "timestamp",
-    tbl_name: "user name",
-    tbl_address: "address",
+    tbl_timestamp: "Timestamp",
+    tbl_name: "User Name",
+    tbl_address: "Address",
+    tbl_hash: "Hash Value",
   },
   ...enLocale
 }

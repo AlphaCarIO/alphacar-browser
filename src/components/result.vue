@@ -1,23 +1,36 @@
 <template>
 <div class="content">
 <div class="internal">
-  <span>greeting_msg:{{ greeting_msg }}</span>
   <el-table
     :data="tableData"
+    border
     style="width: 100%" :header-cell-style="changeHead">
     <el-table-column
-      prop="timestamp"
+      prop="datetime"
       :label="tbl_timestamp"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="name"
+      prop="user.name"
       :label="tbl_name"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="address"
-      :label="tbl_address">
+      :label="tbl_hash">
+      <template slot-scope="scope">
+        <div>
+          <a :href="'http://127.0.0.1:8080/ipfs/' + scope.row.hash">http://127.0.0.1:8080/ipfs/{{ scope.row.hash }}
+          </a>
+        </div>
+        <div>
+          <a :href="'https://gateway.ipfs.guide/' + scope.row.hash">https://gateway.ipfs.guide/{{ scope.row.hash }}
+          </a>
+        </div>
+        <div>
+          <a :href="'http://ipfs.io/ipfs/' + scope.row.hash">http://ipfs.io/ipfs/{{ scope.row.hash }}
+          </a>
+        </div>
+      </template>
     </el-table-column>
   </el-table>
 
@@ -69,6 +82,9 @@ export default {
     },
     tbl_address: function() {
       return this.$t("message.tbl_address")
+    },
+    tbl_hash: function() {
+      return this.$t("message.tbl_hash")
     }
   },
   data() {
@@ -100,9 +116,11 @@ export default {
       let search_txt = this.$route.query.search_txt.trim();
       console.log('result fetchData search_type=', search_type, " search_txt=", search_txt);
 
-      self.$http.get('/greeting/alphacar').then(response => {
+      self.$http.get('/infos/' + search_txt).then(response => {
           console.log('response:', response);
-          self.greeting_msg = response.data;
+          if (response.status == 200) {
+            self.tableData = response.data;
+          }
 　　　　}, response => {
 　　　　　　console.log(response);
 　　　　});

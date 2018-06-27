@@ -13,6 +13,7 @@ const cn = {
     tbl_timestamp: "时间戳",
     tbl_name: "用户名",
     tbl_address: "地址",
+    tbl_hash: "哈希值",
   },
   ...zhLocale
 }
