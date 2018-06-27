@@ -8,11 +8,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
 import store from './store';
 import router from './router'
-import axios from 'axios'
+import request from '@/utils/request'
 
 import i18n from './i18n/i18n';
 
-Vue.prototype.$http = axios
+Vue.prototype.$http = request
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

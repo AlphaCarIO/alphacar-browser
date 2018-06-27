@@ -58,6 +58,7 @@
 
 <script>
 import bus from "@/utils/event";
+import * as cc from "@/config/constants"
 
 export default {
   name: "Header",
@@ -141,10 +142,15 @@ export default {
 
     onSearch() {
       let search_txt = this.search_txt.trim();
+      let query_cond = { search_type: this.search_type, search_txt: search_txt }
+      //this.$router.go(this.$router.currentRoute)
       this.$router.push({
         path: "/search",
-        query: { search_type: this.search_type, search_txt: search_txt }
+        query: query_cond
       });
+
+      bus.$emit(cc.DO_SEARCH, query_cond);
+      
     }
   }
 };

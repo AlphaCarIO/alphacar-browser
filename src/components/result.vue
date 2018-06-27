@@ -1,6 +1,7 @@
 <template>
 <div class="content">
 <div class="internal">
+  <span>greeting_msg:{{ greeting_msg }}</span>
   <el-table
     :data="tableData"
     style="width: 100%" :header-cell-style="changeHead">
@@ -72,16 +73,21 @@ export default {
   },
   data() {
     return {
+      greeting_msg: '',
       tableData: [],
     };
   },
   created() {
-  },
-  mounted() {
+    bus.$on(cc.DO_SEARCH, (query_cond) => {
+      //console.log('on DO_SEARCH query_cond=', query_cond);
+      this.fetchData();
+    })
     this.fetchData();
   },
+  mounted() {
+  },
   watch: {
-    '$route': 'fetchData'
+    //'$route': 'fetchData'
   },
   methods: {
     changeHead({row, column, rowIndex, columnIndex}) {
@@ -89,9 +95,17 @@ export default {
     },
 
     fetchData () {
+      let self = this;
       let search_type = this.$route.query.search_type.trim();
       let search_txt = this.$route.query.search_txt.trim();
-      console.log('fetchData search_type=', search_type, " search_txt=", search_txt);
+      console.log('result fetchData search_type=', search_type, " search_txt=", search_txt);
+
+      self.$http.get('/greeting/alphacar').then(response => {
+          console.log('response:', response);
+          self.greeting_msg = response.data;
+　　　　}, response => {
+　　　　　　console.log(response);
+　　　　});
     },
 
     onBack() {
