@@ -74,11 +74,19 @@ export default {
         },
         {
           value: "1",
-          label: this.$t("message.search_type_vincode")
+          label: this.$t("message.search_type_ubi_code")
         },
         {
           value: "2",
-          label: this.$t("message.search_type_username")
+          label: this.$t("message.search_type_vincode")
+        },
+        {
+          value: "3",
+          label: this.$t("message.search_type_user_name")
+        },
+        {
+          value: "4",
+          label: this.$t("message.search_type_driving_license")
         }
       ]
     }

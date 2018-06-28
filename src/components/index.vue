@@ -2,7 +2,8 @@
 <div class="bg_layer">
 <div class="content"> 
   <el-row type="flex" :gutter="20">
-    <el-col :span="12"><div class="line1 grid-content bg-purple"></div></el-col>
+    <el-col :span="12"><div class="line1 grid-content bg-purple">
+      {{ $t('') }}</div></el-col>
     <el-col :span="12"><div class="grid-content bg-purple"><v-charts></v-charts></div></el-col>
   </el-row>
   <el-row type="flex" :gutter="20">
@@ -59,11 +60,11 @@
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
-import charts from '@/components/echarts.vue';
+import txs_history from '@/components/txs_history.vue';
 
 export default {
   components: {
-    'v-charts': charts
+    'v-charts': txs_history
   },
   data() {
     return {};

@@ -6,19 +6,40 @@
     border
     style="width: 100%" :header-cell-style="changeHead">
     <el-table-column
-      prop="datetime"
-      :label="tbl_timestamp"
-      width="180">
+      prop="ubi_code"
+      :label="tbl_ubi_code"
+      width="100">
     </el-table-column>
     <el-table-column
       prop="user.name"
       :label="tbl_name"
-      width="180">
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="user.driving_license"
+      :label="tbl_driving_license"
+      width="130">
+    </el-table-column>
+    <el-table-column
+      prop="car_info.vin_code"
+      :label="tbl_vincode"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      :label="tbl_duration"
+      width="200">
+      <template slot-scope="scope">
+        <div>{{ scope.row.start_date }}-{{ scope.row.end_date }}</div>
+      </template>
     </el-table-column>
     <el-table-column
       :label="tbl_hash">
       <template slot-scope="scope">
-        <div>
+        <div v-if="scope.row.hash=='' || scope.row.hash==undefined">
+          {{ $t("message.empty_hash") }}
+        </div>
+        <div v-else>
+          <div>
           <a :href="'http://127.0.0.1:8080/ipfs/' + scope.row.hash">http://127.0.0.1:8080/ipfs/{{ scope.row.hash }}
           </a>
         </div>
@@ -29,6 +50,7 @@
         <div>
           <a :href="'http://ipfs.io/ipfs/' + scope.row.hash">http://ipfs.io/ipfs/{{ scope.row.hash }}
           </a>
+        </div>
         </div>
       </template>
     </el-table-column>
@@ -67,21 +89,26 @@
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
-import charts from '@/components/echarts.vue';
+import qs from "qs";
 
 export default {
   components: {
-    'v-charts': charts
   },
   computed: {
-    tbl_timestamp: function() {
-      return this.$t("message.tbl_timestamp")
+    tbl_ubi_code: function() {
+      return this.$t("message.tbl_ubi_code")
     },
     tbl_name: function() {
       return this.$t("message.tbl_name")
     },
-    tbl_address: function() {
-      return this.$t("message.tbl_address")
+    tbl_driving_license: function() {
+      return this.$t("message.tbl_driving_license")
+    },
+    tbl_vincode: function() {
+      return this.$t("message.tbl_vincode")
+    },
+    tbl_duration: function() {
+      return this.$t("message.tbl_duration")
     },
     tbl_hash: function() {
       return this.$t("message.tbl_hash")
@@ -116,7 +143,12 @@ export default {
       let search_txt = this.$route.query.search_txt.trim();
       console.log('result fetchData search_type=', search_type, " search_txt=", search_txt);
 
-      self.$http.get('/infos/' + search_txt).then(response => {
+      let params = {
+        'search_type': search_type,
+        'search_txt': search_txt,
+      }
+
+      self.$http.get('/ubi_info_lst?' + qs.stringify(params)).then(response => {
           console.log('response:', response);
           if (response.status == 200) {
             self.tableData = response.data;
