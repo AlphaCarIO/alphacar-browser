@@ -1,0 +1,13 @@
+const axios_conf = {
+    baseURL: 'http://192.168.1.11:3000',
+    //baseURL: 'http://192.168.1.11:8800/v1',
+    headers:{
+        'Content-Type':'application/x-www-form-urlencoded',
+        "Access-Control-Allow-Headers":"Authorization,Origin, X-Requested-With, Content-Type, Accept"
+    },
+    timeout: 15000,
+}
+
+module.exports = {
+    axios_conf,
+}

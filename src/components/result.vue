@@ -148,10 +148,10 @@ export default {
         'search_txt': search_txt,
       }
 
-      self.$http.get('/ubi_info_lst?' + qs.stringify(params)).then(response => {
+      self.$http.get('/ubi_info/list?' + qs.stringify(params)).then(response => {
           console.log('response:', response);
           if (response.status == 200) {
-            self.tableData = response.data;
+            self.tableData = response.data.data;
           }
 　　　　}, response => {
 　　　　　　console.log(response);

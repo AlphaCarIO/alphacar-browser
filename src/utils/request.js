@@ -1,14 +1,8 @@
 import axios from 'axios'
-import store from '@/store'
+//import store from '@/store'
+import * as api_config from './api_config'
 
-const service = axios.create({
-    baseURL: 'http://localhost:8800/v1',
-    headers:{
-        'Content-Type':'application/x-www-form-urlencoded',
-        "Access-Control-Allow-Headers":"Authorization,Origin, X-Requested-With, Content-Type, Accept"
-    },
-    timeout: 15000
-})
+const service = axios.create(api_config.axios_conf)
 
 service.interceptors.response.use(
     function(response) {
@@ -17,7 +11,7 @@ service.interceptors.response.use(
     },
     function(error) {
       // 请求错误则向store commit这个状态变化
-      const httpError= { 
+      const httpError= {
         hasError:true,
         status:error.response.status,
         statusText:error.response.statusText
