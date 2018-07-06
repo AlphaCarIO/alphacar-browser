@@ -32,42 +32,10 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="hash"
       :label="tbl_hash">
-      <template slot-scope="scope">
-        <div v-if="scope.row.hash=='' || scope.row.hash==undefined">
-          {{ $t("message.empty_hash") }}
-        </div>
-        <div v-else>
-          <div>
-          <a :href="'http://127.0.0.1:8080/ipfs/' + scope.row.hash">http://127.0.0.1:8080/ipfs/{{ scope.row.hash }}
-          </a>
-        </div>
-        <div>
-          <a :href="'https://gateway.ipfs.guide/' + scope.row.hash">https://gateway.ipfs.guide/{{ scope.row.hash }}
-          </a>
-        </div>
-        <div>
-          <a :href="'http://ipfs.io/ipfs/' + scope.row.hash">http://ipfs.io/ipfs/{{ scope.row.hash }}
-          </a>
-        </div>
-        </div>
-      </template>
     </el-table-column>
   </el-table>
-  <div style="align: center;margin-top:2px;">
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="page_sizes"
-      :page-size="page_size"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total_count">
-    </el-pagination>
-  </div>
-  <div style="align: center;margin-top:5px; margin-bottom=10px;">
-    <el-button class="bk_btn" @click="onBack" plain>{{$t("message.Back")}}</el-button>
-  </div>
 </div>
 </template>
 <style scoped>
@@ -88,9 +56,6 @@
   background-color:transparent !important;
 }
 
-.bk_btn {
-  margin: auto;
-}
 </style>
 <script>
 import bus from "@/utils/event";
@@ -122,12 +87,7 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
-      total_count: 0,
-      greeting_msg: '',
       tableData: [],
-      page_sizes: [5, 10, 20, 50],
-      page_size: 5,
     };
   },
   created() {
@@ -147,46 +107,24 @@ export default {
       return { backgroundColor: '#000000ff', width: '100%' };
     },
 
-    handleSizeChange(val) {
-      this.page_size = val
-      this.fetchData()
-    },
-
-    handleCurrentChange(val) {
-      this.currentPage = val
-      this.fetchData()
-    },
-
     fetchData () {
       let self = this;
-      let search_type = self.$route.query.search_type.trim();
-      let search_txt = self.$route.query.search_txt.trim();
 
       let params = {
-        'search_type': search_type,
-        'search_txt': search_txt,
-        'page':self.currentPage - 1,
-        'page_size':self.page_size,
+        'search_type': '0',
+        'search_txt': '',
+        'page': 0,
+        'page_size': 3,
       }
-      console.log('params=', params);
 
       self.$http.get('/ubi_info/list?' + qs.stringify(params)).then(response => {
-          //console.log('response:', response);
           if (response.status == 200) {
-            self.total_count = response.data.data.total_count;
             self.tableData = response.data.data.lst;
-            //console.log('lst length', self.tableData.length)
-            //console.log('self.total_count:', self.total_count);
           }
 　　　　}, response => {
 　　　　　　console.log(response);
 　　　　});
     },
-
-    onBack() {
-      let self = this;
-      self.$router.push({path: '/'});
-    }
   },
 };
 </script>

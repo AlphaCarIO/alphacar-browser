@@ -150,8 +150,7 @@ export default {
 
     onSearch() {
       let search_txt = this.search_txt.trim();
-      let query_cond = { search_type: this.search_type, search_txt: search_txt }
-      //this.$router.go(this.$router.currentRoute)
+      let query_cond = { search_type: this.search_type, search_txt: search_txt, page: 0, page_size: 5 }
       this.$router.push({
         path: "/search",
         query: query_cond

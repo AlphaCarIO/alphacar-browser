@@ -57,12 +57,14 @@ export default {
 
 .my_main {
   margin-top: 0px;
-  height: 640px !important;
+  /*height: 640px !important;*/
+  height: 100%;
   padding: 0% !important;
 }
 
 .footer {
   padding: 0px;
+  padding-top: 10px;
   height: 40px !important;
 }
 h1, h2 {

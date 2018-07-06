@@ -2,12 +2,23 @@
 <div class="bg_layer">
 <div class="content"> 
   <el-row type="flex" :gutter="20">
-    <el-col :span="12"><div class="line1 grid-content bg-purple">
-      {{ $t('') }}</div></el-col>
-    <el-col :span="12"><div class="grid-content bg-purple"><v-charts></v-charts></div></el-col>
+    <el-col :span="12">
+      <div class="line1 grid-content bg-purple">
+        <v-curr_ubiinfo></v-curr_ubiinfo>
+      </div>
+    </el-col>
+    <el-col :span="12">
+      <div class="grid-content bg-purple">
+        <v-charts></v-charts>
+      </div>
+    </el-col>
   </el-row>
   <el-row type="flex" :gutter="20">
-    <el-col :span="24"><div class="line2 grid-content bg-purple"></div></el-col>
+    <el-col :span="24">
+      <div class="line2 grid-content bg-purple">
+        <v-latest_ubiinfos></v-latest_ubiinfos>
+      </div>
+    </el-col>
   </el-row>
 </div>
 </div>
@@ -17,7 +28,7 @@
 .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
-  }
+}
 
 .el-row {
   margin-top: 20px;
@@ -60,11 +71,15 @@
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
-import txs_history from '@/components/txs_history.vue';
+import curr_ubiinfo from '@/components/index/curr_ubiinfo.vue';
+import txs_history from '@/components/index/txs_history.vue';
+import latest_ubiinfos from '@/components/index/latest_ubiinfos.vue';
 
 export default {
   components: {
-    'v-charts': txs_history
+    'v-curr_ubiinfo': curr_ubiinfo,
+    'v-charts': txs_history,
+    'v-latest_ubiinfos': latest_ubiinfos,
   },
   data() {
     return {};
