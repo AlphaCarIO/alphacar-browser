@@ -7,23 +7,6 @@ const axios_conf = {
     timeout: 15000,
 };
 
-const gate_query_conf = {
-    baseURL: 'https://data.gateio.io/',
-    mode: 'no-cors',
-    headers:{
-        'Content-Type': 'application/x-www-form-urlencoded',
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Authorization,Origin, X-Requested-With, Content-Type, Accept"
-    },
-    timeout: 15000,
-};
-
-const gate_key_secret = {
-    "apiKey": "",
-    "secretKey": ""
-};
-
 module.exports = {
     axios_conf,
-    gate_key_secret,
 }

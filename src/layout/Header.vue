@@ -105,17 +105,30 @@ export default {
       ],
       search_txt: "",
       search_type: "0",
+      page: 0,
+      page_size: 5,
       nation: "cn"
     };
   },
   mounted() {
     //console.log('header fetchData this.$route.path=', this.$route.path);
+    bus.$on(cc.ON_PAGE_SIZE_CHANGE, (new_page_size) => {
+      this.page_size = new_page_size;
+    })
+    
+    bus.$on(cc.ON_PAGE_CHANGE, (new_page) => {
+      this.page = new_page;
+    })
 
     if (this.$route.path == "/search") {
       let search_type = this.$route.query.search_type.trim();
       let search_txt = this.$route.query.search_txt.trim();
+      let page = parseInt(this.$route.query.page);
+      let page_size = parseInt(this.$route.query.page_size);
       this.search_type = search_type;
       this.search_txt = search_txt;
+      this.page = page;
+      this.page_size = page_size;
     }
 
     this.nation = this.$i18n.locale;
@@ -126,12 +139,11 @@ export default {
   },
   methods: {
     onChange() {
-      console.log('nation:', this.nation);
       this.$i18n.locale = this.nation;
     },
 
     onKeyPress: function(ev) {
-      console.log("ev.keyCode=", ev.keyCode);
+      //console.log("ev.keyCode=", ev.keyCode);
       if (ev.keyCode == 13) {
         this.onSearch();
       }
@@ -150,7 +162,12 @@ export default {
 
     onSearch() {
       let search_txt = this.search_txt.trim();
-      let query_cond = { search_type: this.search_type, search_txt: search_txt, page: 0, page_size: 5 }
+      let query_cond = { 
+        search_type: this.search_type, 
+        search_txt: search_txt, 
+        page: this.page, 
+        page_size: this.page_size
+      }
       this.$router.push({
         path: "/search",
         query: query_cond

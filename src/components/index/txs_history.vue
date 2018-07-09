@@ -36,7 +36,7 @@
             }
           },
           legend: {
-            data: [self.$t('TxsPerDay')]
+            data: [self.$t('message.TxsPerDay')]
           },
           toolbox: {
             feature: {

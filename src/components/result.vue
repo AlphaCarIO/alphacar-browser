@@ -133,9 +133,9 @@ export default {
   created() {
     bus.$on(cc.DO_SEARCH, (query_cond) => {
       //console.log('on DO_SEARCH query_cond=', query_cond);
-      this.fetchData();
+      this.fetchData(true);
     })
-    this.fetchData();
+    this.fetchData(false);
   },
   mounted() {
   },
@@ -149,24 +149,40 @@ export default {
 
     handleSizeChange(val) {
       this.page_size = val
-      this.fetchData()
+      bus.$emit(cc.ON_PAGE_SIZE_CHANGE, val);
+      this.fetchData(false)
     },
 
     handleCurrentChange(val) {
       this.currentPage = val
-      this.fetchData()
+      bus.$emit(cc.ON_PAGE_CHANGE, val);
+      this.fetchData(false)
     },
 
-    fetchData () {
+    fetchData (isFromEvent) {
+      console.log('isFromEvent:', isFromEvent);
       let self = this;
       let search_type = self.$route.query.search_type.trim();
       let search_txt = self.$route.query.search_txt.trim();
+      let page = parseInt(self.$route.query.page);
+      let page_size = parseInt(self.$route.query.page_size);
+      console.log('page=', page, ' page_size=', page_size);
+
+      if (page == undefined || isNaN(page)) {
+        self.currentPage = page;
+      }
+
+      if (page_size == undefined || isNaN(page_size) || self.page_sizes.indexOf(page_size) == -1) {
+        console.log(' page_size=', page_size);
+        page_size = self.page_sizes[0];
+      }
+      self.page_size = page_size;
 
       let params = {
         'search_type': search_type,
         'search_txt': search_txt,
-        'page':self.currentPage - 1,
-        'page_size':self.page_size,
+        'page': self.currentPage - 1,
+        'page_size': self.page_size,
       }
       console.log('params=', params);
 
