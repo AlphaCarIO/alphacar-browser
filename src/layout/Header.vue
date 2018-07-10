@@ -105,13 +105,13 @@ export default {
       ],
       search_txt: "",
       search_type: "0",
-      page: 0,
+      page: 1,
       page_size: 5,
       nation: "cn"
     };
   },
   mounted() {
-    //console.log('header fetchData this.$route.path=', this.$route.path);
+
     bus.$on(cc.ON_PAGE_SIZE_CHANGE, (new_page_size) => {
       this.page_size = new_page_size;
     })
@@ -120,6 +120,7 @@ export default {
       this.page = new_page;
     })
 
+    /*
     if (this.$route.path == "/search") {
       let search_type = this.$route.query.search_type.trim();
       let search_txt = this.$route.query.search_txt.trim();
@@ -130,6 +131,7 @@ export default {
       this.page = page;
       this.page_size = page_size;
     }
+    */
 
     this.nation = this.$i18n.locale;
 
@@ -140,10 +142,10 @@ export default {
   methods: {
     onChange() {
       this.$i18n.locale = this.nation;
+      bus.$emit(cc.ON_NATION_CHANGE, null);
     },
 
     onKeyPress: function(ev) {
-      //console.log("ev.keyCode=", ev.keyCode);
       if (ev.keyCode == 13) {
         this.onSearch();
       }
@@ -173,7 +175,7 @@ export default {
         query: query_cond
       });
 
-      bus.$emit(cc.DO_SEARCH, query_cond);
+      //bus.$emit(cc.DO_SEARCH, query_cond);
       
     }
   }

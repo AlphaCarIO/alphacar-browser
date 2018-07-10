@@ -20,7 +20,7 @@ const en = {
     tbl_hash: "Hash Value",
     empty_hash: "The Hash Value is Empty!",
     quote_last: "Last Price",
-    quote_percentChange: "Percent Change",
+    quote_percentChange: "Daily Change",
     quote_baseVolume: "Base Volume",
     quote_high24hr: "High in 24hr",
     quote_low24hr: "Low in 24hr",

@@ -58,7 +58,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
+      :current-page="page"
       :page-sizes="page_sizes"
       :page-size="page_size"
       layout="total, sizes, prev, pager, next, jumper"
@@ -122,66 +122,100 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
       total_count: 0,
       greeting_msg: '',
       tableData: [],
+      page: 1,
       page_sizes: [5, 10, 20, 50],
       page_size: 5,
+      search_type: 0,
+      search_txt: '',
     };
   },
   created() {
+    /*
     bus.$on(cc.DO_SEARCH, (query_cond) => {
       //console.log('on DO_SEARCH query_cond=', query_cond);
-      this.fetchData(true);
+      this.fetchData();
     })
-    this.fetchData(false);
+    */
+    this.fetchData();
   },
   mounted() {
   },
   watch: {
-    //'$route': 'fetchData'
+    '$route': 'fetchData'
   },
   methods: {
     changeHead({row, column, rowIndex, columnIndex}) {
       return { backgroundColor: '#000000ff', width: '100%' };
     },
 
+    onSearch() {
+      let self = this;
+
+      let query_cond = { 
+        search_type: self.search_type, 
+        search_txt: self.search_txt, 
+        page: self.page,
+        page_size: self.page_size
+      }
+      self.$router.push({
+        path: "/search",
+        query: query_cond
+      });
+      
+    },
+
     handleSizeChange(val) {
       this.page_size = val
+      this.page = 1
+      /*
+      bus.$emit(cc.ON_PAGE_CHANGE, this.page);
       bus.$emit(cc.ON_PAGE_SIZE_CHANGE, val);
-      this.fetchData(false)
+      */
+      this.onSearch()
     },
 
     handleCurrentChange(val) {
-      this.currentPage = val
-      bus.$emit(cc.ON_PAGE_CHANGE, val);
-      this.fetchData(false)
+      this.page = val
+      //bus.$emit(cc.ON_PAGE_CHANGE, val);
+      this.onSearch()
     },
 
-    fetchData (isFromEvent) {
-      console.log('isFromEvent:', isFromEvent);
+    fetchData () {
       let self = this;
-      let search_type = self.$route.query.search_type.trim();
-      let search_txt = self.$route.query.search_txt.trim();
+      let search_type = self.$route.query.search_type;
+      let search_txt = self.$route.query.search_txt;
       let page = parseInt(self.$route.query.page);
       let page_size = parseInt(self.$route.query.page_size);
       console.log('page=', page, ' page_size=', page_size);
 
-      if (page == undefined || isNaN(page)) {
-        self.currentPage = page;
+      if (search_type != undefined) {
+        self.search_type = search_type;
+      }
+
+      if (search_txt != undefined) {
+        self.search_txt = search_txt;
+      }
+
+      if (page != undefined && !isNaN(page)) {
+        self.page = page;
+      }
+
+      if (self.page < 1) {
+        self.page = 1
       }
 
       if (page_size == undefined || isNaN(page_size) || self.page_sizes.indexOf(page_size) == -1) {
-        console.log(' page_size=', page_size);
         page_size = self.page_sizes[0];
       }
       self.page_size = page_size;
 
       let params = {
-        'search_type': search_type,
-        'search_txt': search_txt,
-        'page': self.currentPage - 1,
+        'search_type': self.search_type,
+        'search_txt': self.search_txt,
+        'page': self.page - 1,
         'page_size': self.page_size,
       }
       console.log('params=', params);
@@ -191,8 +225,6 @@ export default {
           if (response.status == 200) {
             self.total_count = response.data.data.total_count;
             self.tableData = response.data.data.lst;
-            //console.log('lst length', self.tableData.length)
-            //console.log('self.total_count:', self.total_count);
           }
 　　　　}, response => {
 　　　　　　console.log(response);

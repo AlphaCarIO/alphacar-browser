@@ -8,23 +8,33 @@
   </div>
 </template>
 <script>
+  import bus from "@/utils/event";
+  import * as cc from "@/config/constants"
   import moment from 'moment'
   import echarts from 'echarts'
+  import qs from "qs"
+
   export default {
     data() {
       return {
         dates: null,
         datas: null,
+        myChart: null,
       };
     },
     methods: {
-      getUserChartInit() {
+      InitChartOption() {
+
         let self = this;
-        const myChart = echarts.init(document.getElementById('userChart'));
-        myChart.showLoading();
-        var option = {
+        if (self == null) {
+          console.log('self == null')
+          return
+        }
+        self.myChart.showLoading();
+
+        let option = {
           title: {
-            text: self.$t('Transactions')
+            text: self.$t('message.Transactions')
           },
           tooltip: {
             trigger: 'axis',
@@ -63,7 +73,7 @@
           ],
           series: [
             {
-              name: self.$t('TxsPerDay'),
+              name: self.$t('message.TxsPerDay'),
               type: 'line',
               stack: 'Total',
               areaStyle: {normal: {}},
@@ -71,27 +81,55 @@
             }
           ]
         };
-        myChart.setOption(option, true);
-        myChart.hideLoading();
+
+        if (self.myChart != null) {
+          self.myChart.setOption(option, true);
+        }
+
+        self.myChart.hideLoading();
+
+      },
+      getUserChartInit() {
+        let self = this;
+        self.myChart = echarts.init(document.getElementById('userChart'));
+
+        self.InitChartOption();
 
         window.onresize = function() {
-          myChart.resize();
+          self.myChart.resize();
         }
       }
     },
     mounted () {
+      let self = this;
       let days = 13;
-      var dt = moment().subtract(days, 'days');
-      this.dates = [];
-      this.datas = [];
+      var dt = moment("2018-07-02").subtract(days, 'days');
+      self.dates = [];
+      self.datas = [];
+      let dates = [];
       for (var i = 0; i<= days; i++) {
-        this.dates.push(dt.format("MMM/Do"));
-        this.datas.push(Math.floor(50 + Math.random() * Math.floor(500)));
+        self.dates.push(dt.format("MMM/Do"));
+        dates.push(dt.format("YYYY-MM-DD"));
+        //this.datas.push(Math.floor(50 + Math.random() * Math.floor(500)));
         dt = dt.add(1, 'days');
       }
+
+      self.$http.post('/ubi_info/tx_count_lst', dates).then(response => {
+            console.log(response);
+          if (response.status == 200) {
+            self.datas = response.data.data.txs_count;
+            console.log(self.datas);
+            this.getUserChartInit();
+          }
+　　　　}, response => {
+　　　　　　console.log(response);
+　　　　});
       
       this.$nextTick(function () {
-        this.getUserChartInit();
+      })
+
+      bus.$on(cc.ON_NATION_CHANGE, (data) => {
+        self.InitChartOption();
       })
     }
   };

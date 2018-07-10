@@ -20,7 +20,7 @@ const cn = {
     tbl_hash: "哈希值",
     empty_hash: "哈希值为空",
     quote_last: "最新价",
-    quote_percentChange: "涨跌幅百分比",
+    quote_percentChange: "日涨跌",
     quote_baseVolume: "交易量",
     quote_high24hr: "24小时最高价",
     quote_low24hr: "24小时最低价",

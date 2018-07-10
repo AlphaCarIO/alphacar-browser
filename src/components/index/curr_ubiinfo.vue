@@ -15,6 +15,7 @@ ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
 <style scoped>
 
 .content {
+  padding-top: 30px;
   font-size: 30px;
   width: 100%;
   height: 100%;
@@ -78,6 +79,7 @@ export default {
       isUp: 0,
       eth_price: '',
       percentChange: '',
+      percentChange2: '',
       baseVolume: '',
       high24hr: '',
       low24hr: '',
@@ -93,17 +95,17 @@ export default {
     fetchData () {
       let self = this;
 
+      //https://data.gateio.io/api2/1/ticker/eth_usdt
       self.$http.get('/gateio/ticker/eth_usdt').then(response => {
           if (response.status == 200) {
             self.eth_price = response.data.data.last;
             self.baseVolume = response.data.data.baseVolume.toFixed(4);
             self.high24hr = response.data.data.high24hr;
             self.low24hr = response.data.data.low24hr;
-            let percentChange = response.data.data.percentChange;
-            self.percentChange = (percentChange * 100).toFixed(2);
-            if (percentChange == 0) {
+            self.percentChange = response.data.data.percentChange.toFixed(2);
+            if (self.percentChange == 0) {
               self.isUp = 0;
-            } else if (percentChange > 0) {
+            } else if (self.percentChange > 0) {
               self.isUp = 1;
             } else {
               self.isUp = -1;
