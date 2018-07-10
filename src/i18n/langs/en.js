@@ -3,6 +3,7 @@ import enLocale from 'element-ui/lib/locale/lang/en'
 const en = {
   message : {
     title: 'AlphaCar',
+    loading: "Loading...",
     Back: "Back",
     search_type_all: 'All',
     search_type_ubi_code: 'UBI Code',

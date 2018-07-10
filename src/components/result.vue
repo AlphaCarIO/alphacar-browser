@@ -54,7 +54,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <div style="align: center;margin-top:2px;">
+  <div class="pagination_div">
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -70,6 +70,25 @@
   </div>
 </div>
 </template>
+<style>
+
+.el-pagination {
+  color: #0c0316 !important;
+}
+
+.el-pagination__total {
+  color: #fbfafc !important;
+}
+
+.el-pagination__sizes {
+  color: #fbfafc !important;
+}
+
+.el-pagination__jump {
+  color: #fbfafc !important;
+}
+
+</style>
 <style scoped>
 
 .content {
@@ -78,6 +97,11 @@
   width: 100%;
   height: 100%;
   text-align: center;
+}
+
+.pagination_div {
+  text-align: center;
+  margin-top: 2px;
 }
 
 .el-table th, .el-table tr {

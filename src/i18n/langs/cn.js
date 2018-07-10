@@ -3,6 +3,7 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 const cn = {
   message : {
     title: '阿尔法车链',
+    loading: "加载中...",
     Back: "返回",
     search_type_all: '全部',
     search_type_ubi_code: '保单号',

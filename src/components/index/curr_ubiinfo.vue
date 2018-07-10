@@ -1,5 +1,6 @@
 <template>
-<div v-bind:class="['content', this.isUp == 1 ? 'whiteColor' : this.isUp > 0 ? 'redColor' : 'greenColor']">
+<div v-if="loading" class="loading">{{ $t("message.loading") }}</div>
+<div v-else v-bind:class="['content', price_color]">
 ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
 <div class='small_content'>
   {{ $t("message.quote_percentChange") }} :{{ percentChange }}%
@@ -12,25 +13,32 @@ ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
 </div>
 </div>
 </template>
+
 <style scoped>
+.loading {
+  padding-top: 0px;
+  font-size: 50px;
+  width: 100%;
+  height: 250px;
+  line-height: 250px;
+  text-align: center;
+}
 
 .content {
   padding-top: 30px;
   font-size: 30px;
   width: 100%;
-  height: 100%;
+  height: 250px;
   text-align: left;
 }
 
 .small_content {
   font-size: 18px;
-  text-align: left;
 }
 
 .small_content2 {
   color: #000000;
   font-size: 18px;
-  text-align: left;
 }
 
 .whiteColor {
@@ -44,7 +52,6 @@ ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
 .greenColor {
   color: #028302;
 }
-
 </style>
 <script>
 import bus from "@/utils/event";
@@ -52,51 +59,68 @@ import * as cc from "@/config/constants";
 import qs from "qs";
 
 export default {
-  components: {
-  },
+  components: {},
   computed: {
+    price_color: function() {
+      let color = "whiteColor";
+
+      if (this.isUp == 1) {
+        if (this.$i18n.locale == "cn") {
+          color = "redColor";
+        } else {
+          color = "greenColor";
+        }
+      } else if (this.isUp == -1) {
+        if (this.$i18n.locale == "cn") {
+          color = "greenColor";
+        } else {
+          color = "redColor";
+        }
+      }
+      return color;
+    },
     tbl_ubi_code: function() {
-      return this.$t("message.tbl_ubi_code")
+      return this.$t("message.tbl_ubi_code");
     },
     tbl_name: function() {
-      return this.$t("message.tbl_name")
+      return this.$t("message.tbl_name");
     },
     tbl_driving_license: function() {
-      return this.$t("message.tbl_driving_license")
+      return this.$t("message.tbl_driving_license");
     },
     tbl_vincode: function() {
-      return this.$t("message.tbl_vincode")
+      return this.$t("message.tbl_vincode");
     },
     tbl_duration: function() {
-      return this.$t("message.tbl_duration")
+      return this.$t("message.tbl_duration");
     },
     tbl_hash: function() {
-      return this.$t("message.tbl_hash")
+      return this.$t("message.tbl_hash");
     }
   },
   data() {
     return {
       isUp: 0,
-      eth_price: '',
-      percentChange: '',
-      percentChange2: '',
-      baseVolume: '',
-      high24hr: '',
-      low24hr: '',
+      eth_price: "",
+      percentChange: "",
+      percentChange2: "",
+      baseVolume: "",
+      high24hr: "",
+      low24hr: "",
+      loading: true
     };
   },
   created() {
     this.fetchData();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
-
-    fetchData () {
+    fetchData() {
       let self = this;
 
       //https://data.gateio.io/api2/1/ticker/eth_usdt
-      self.$http.get('/gateio/ticker/eth_usdt').then(response => {
+      self.$http.get("/gateio/ticker/eth_usdt").then(
+        response => {
           if (response.status == 200) {
             self.eth_price = response.data.data.last;
             self.baseVolume = response.data.data.baseVolume.toFixed(4);
@@ -110,12 +134,14 @@ export default {
             } else {
               self.isUp = -1;
             }
+            self.loading = false;
           }
-　　　　}, response => {
-　　　　　　console.log(response);
-　　　　});
-
-    },
-  },
+        },
+        response => {
+          console.log(response);
+        }
+      );
+    }
+  }
 };
 </script>
