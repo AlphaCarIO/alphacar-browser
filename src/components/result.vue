@@ -1,9 +1,9 @@
 <template>
 <div class="content">
-  <el-table
+  <el-table class='result_table'
     :data="tableData"
     border
-    style="width: 100%;min-height: 500px;" :header-cell-style="changeHead">
+    style="width: 100%;min-height: 500px;">
     <el-table-column
       prop="ubi_code"
       :label="tbl_ubi_code"
@@ -39,7 +39,7 @@
         </div>
         <div v-else>
           <div>
-          <a :href="'http://127.0.0.1:8080/ipfs/' + scope.row.hash">http://127.0.0.1:8080/ipfs/{{ scope.row.hash }}
+          <a :href="ipfs_addr + '/ipfs/' + scope.row.hash">{{ ipfs_addr }}/ipfs/{{ scope.row.hash }}
           </a>
         </div>
         <div>
@@ -55,7 +55,7 @@
     </el-table-column>
   </el-table>
   <div class="pagination_div">
-    <el-pagination
+    <el-pagination class="result_pagination"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="page"
@@ -70,21 +70,26 @@
   </div>
 </div>
 </template>
-<style>
 
-.el-pagination {
+<style>
+.result_table.el-table th {
+  background: #000000ff !important;
+  font-size: middle;
+}
+
+.result_pagination .el-pagination {
   color: #0c0316 !important;
 }
 
-.el-pagination__total {
+.result_pagination .el-pagination__total {
   color: #fbfafc !important;
 }
 
-.el-pagination__sizes {
+.result_pagination .el-pagination__sizes {
   color: #fbfafc !important;
 }
 
-.el-pagination__jump {
+.result_pagination .el-pagination__jump {
   color: #fbfafc !important;
 }
 
@@ -120,6 +125,7 @@
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
 import qs from "qs";
+import * as app_config from '@/config/app_config'
 
 export default {
   components: {
@@ -146,6 +152,7 @@ export default {
   },
   data() {
     return {
+      ipfs_addr: app_config.ipfs_server_addr,
       total_count: 0,
       greeting_msg: '',
       tableData: [],
@@ -171,9 +178,6 @@ export default {
     '$route': 'fetchData'
   },
   methods: {
-    changeHead({row, column, rowIndex, columnIndex}) {
-      return { backgroundColor: '#000000ff', width: '100%' };
-    },
 
     onSearch() {
       let self = this;

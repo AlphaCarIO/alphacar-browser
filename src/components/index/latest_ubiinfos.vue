@@ -1,9 +1,9 @@
 <template>
 <div class="content">
-  <el-table
+  <el-table class="latest_table"
     :data="tableData"
     border
-    style="width: 100%;min-height: 500px;" :header-cell-style="changeHead">
+    style="width: 100%;min-height: 500px;">
     <el-table-column
       prop="ubi_code"
       :label="tbl_ubi_code"
@@ -38,8 +38,15 @@
   </el-table>
 </div>
 </template>
-<style scoped>
 
+<style>
+.latest_table.el-table th {
+  background: #000000ff !important;
+  font-size: middle;
+}
+</style>
+
+<style scoped>
 .content {
   font-size: 30px;
   color: #ffffff;
@@ -48,14 +55,14 @@
   text-align: center;
 }
 
-.el-table th, .el-table tr {
-  background-color:transparent !important;
+.el-table th,
+.el-table tr {
+  background-color: transparent !important;
 }
 
 .el-table {
-  background-color:transparent !important;
+  background-color: transparent !important;
 }
-
 </style>
 <script>
 import bus from "@/utils/event";
@@ -63,68 +70,63 @@ import * as cc from "@/config/constants";
 import qs from "qs";
 
 export default {
-  components: {
-  },
+  components: {},
   computed: {
     tbl_ubi_code: function() {
-      return this.$t("message.tbl_ubi_code")
+      return this.$t("message.tbl_ubi_code");
     },
     tbl_name: function() {
-      return this.$t("message.tbl_name")
+      return this.$t("message.tbl_name");
     },
     tbl_driving_license: function() {
-      return this.$t("message.tbl_driving_license")
+      return this.$t("message.tbl_driving_license");
     },
     tbl_vincode: function() {
-      return this.$t("message.tbl_vincode")
+      return this.$t("message.tbl_vincode");
     },
     tbl_duration: function() {
-      return this.$t("message.tbl_duration")
+      return this.$t("message.tbl_duration");
     },
     tbl_hash: function() {
-      return this.$t("message.tbl_hash")
+      return this.$t("message.tbl_hash");
     }
   },
   data() {
     return {
-      tableData: [],
+      tableData: []
     };
   },
   created() {
-    bus.$on(cc.DO_SEARCH, (query_cond) => {
+    bus.$on(cc.DO_SEARCH, query_cond => {
       //console.log('on DO_SEARCH query_cond=', query_cond);
       this.fetchData();
-    })
+    });
     this.fetchData();
   },
-  mounted() {
-  },
-  watch: {
-    //'$route': 'fetchData'
-  },
+  mounted() {},
   methods: {
-    changeHead({row, column, rowIndex, columnIndex}) {
-      return { backgroundColor: '#000000ff', width: '100%' };
-    },
 
-    fetchData () {
+    fetchData() {
       let self = this;
 
       let params = {
-        'search_type': '0',
-        'search_txt': '',
-        'page': 0,
-        'page_size': 3,
-      }
+        search_type: "0",
+        search_txt: "",
+        page: 0,
+        page_size: 3
+      };
 
-      self.$http.get('/ubi_info/list?' + qs.stringify(params)).then(response => {
+      self.$http.get("/ubi_info/list?" + qs.stringify(params)).then(
+        response => {
           if (response.status == 200) {
             self.tableData = response.data.data.lst;
           }
-　　　　}, response => {
-　　　　　　console.log(response);
-　　　　});
-    },
-  },
+        },
+        response => {
+          console.log(response);
+        }
+      );
+    }
+  }
 };
 </script>

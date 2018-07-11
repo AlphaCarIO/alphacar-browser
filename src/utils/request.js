@@ -1,7 +1,7 @@
 import axios from 'axios'
-import * as api_config from './api_config'
+import * as app_config from '@/config/app_config'
 
-const service = axios.create(api_config.axios_conf)
+const service = axios.create(app_config.axios_conf)
 
 service.interceptors.response.use(
     function(response) {
