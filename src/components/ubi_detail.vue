@@ -7,7 +7,9 @@
 {{ $t("message.no_ubi_info") }}
 </div>
 <div v-else-if="show_cond == 2" class="content">
-{{ $t("message.ubi_info") }}
+<div style="text-align: center">
+  {{ $t("message.ubi_info") }} 
+</div>
 <div>
   -----------------------------------------------
 </div>
@@ -49,16 +51,20 @@
         </div>
 </div>
 </div>
+  <div style="align:center; margin-top:260px; margin-bottom:10px;">
+    <el-button class="bk_btn" @click="onBack" plain>{{$t("message.Back")}}</el-button>
+  </div>
 </div>
 </template>
 
 <style scoped>
 .detail_page {
   background: #d3dce6;
-  border-radius: 20px;
+  border-radius: 30px;
+  height: 520px;
+  text-align: center;
   opacity: 0.7 !important;
   filter: alpha(opacity=70) !important;
-  height: 500px;
 }
 
 .page_font {
@@ -69,8 +75,8 @@
   padding-top: 0px;
   font-size: 50px;
   width: 100%;
-  height: 550px;
-  line-height: 550px;
+  height: 520px;
+  line-height: 520px;
   text-align: center;
 }
 
@@ -85,6 +91,10 @@
 .small_content {
   color: #423b3b;
   font-size: 18px;
+}
+
+.bk_btn {
+  margin: auto;
 }
 </style>
 <script>
@@ -141,6 +151,12 @@ export default {
           console.log(response);
         }
       );
+    },
+
+    onBack() {
+      let self = this;
+      self.$router.go(-1);
+      //self.$router.push({ path: "/" });
     }
   }
 };

@@ -1,7 +1,11 @@
 <template>
-<div class="content">
+<div v-if="show_cond == 0" class="loading">
+  {{ $t("message.loading") }}
+</div>
+<div v-else-if="show_cond == 1" class="content">
   <el-table class='result_table'
     :data="tableData"
+    @row-click="handleRowClick"
     border
     style="width: 100%;min-height: 500px;">
     <el-table-column
@@ -65,7 +69,7 @@
       :total="total_count">
     </el-pagination>
   </div>
-  <div style="align: center;margin-top:5px; margin-bottom=10px;">
+  <div style="align:center; margin-top:5px; margin-bottom:10px;">
     <el-button class="bk_btn" @click="onBack" plain>{{$t("message.Back")}}</el-button>
   </div>
 </div>
@@ -73,8 +77,16 @@
 
 <style>
 .result_table.el-table th {
+  cursor: pointer;
+}
+
+.result_table.el-table th {
   background: #000000ff !important;
   font-size: middle;
+}
+
+.result_table.el-table tr {
+  cursor: pointer;
 }
 
 .result_pagination .el-pagination {
@@ -100,20 +112,13 @@
   width: 100%;
   height: 100%;
   text-align: center;
+  opacity: 0.7 !important;
+  filter: alpha(opacity=70) !important;
 }
 
 .pagination_div {
   text-align: center;
   margin-top: 2px;
-}
-
-.el-table th,
-.el-table tr {
-  background-color: transparent !important;
-}
-
-.el-table {
-  background-color: transparent !important;
 }
 
 .bk_btn {
@@ -158,16 +163,11 @@ export default {
       page_sizes: [5, 10, 20, 50],
       page_size: 5,
       search_type: 0,
-      search_txt: ""
+      search_txt: "",
+      show_cond: 0
     };
   },
   created() {
-    /*
-    bus.$on(cc.DO_SEARCH, (query_cond) => {
-      //console.log('on DO_SEARCH query_cond=', query_cond);
-      this.fetchData();
-    })
-    */
     this.fetchData();
   },
   mounted() {},
@@ -175,6 +175,10 @@ export default {
     $route: "fetchData"
   },
   methods: {
+    handleRowClick(row, event, column) {
+      this.$router.push({ path: "/ubi_detail/" + row.ubi_code });
+    },
+
     onSearch() {
       let self = this;
 
@@ -253,6 +257,7 @@ export default {
           if (response.status == 200) {
             self.total_count = response.data.data.total_count;
             self.tableData = response.data.data.lst;
+            self.show_cond = 1
           }
         },
         response => {
@@ -263,7 +268,8 @@ export default {
 
     onBack() {
       let self = this;
-      self.$router.push({ path: "/" });
+      self.$router.go(-1);
+      //self.$router.push({ path: "/" });
     }
   }
 };

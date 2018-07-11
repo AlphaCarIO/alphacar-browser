@@ -45,6 +45,11 @@
   background: #000000ff !important;
   font-size: middle;
 }
+
+.latest_table.el-table tr {
+  cursor: pointer;
+}
+
 </style>
 
 <style scoped>
@@ -56,14 +61,6 @@
   text-align: center;
 }
 
-.el-table th,
-.el-table tr {
-  background-color: transparent !important;
-}
-
-.el-table {
-  background-color: transparent !important;
-}
 </style>
 <script>
 import bus from "@/utils/event";
@@ -104,7 +101,6 @@ export default {
   methods: {
 
     handleRowClick(row, event, column) {
-      console.log('row:', row, ' column:', column);
       this.$router.push({ path: "/ubi_detail/" + row.ubi_code });
     },
 
