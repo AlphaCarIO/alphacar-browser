@@ -13,36 +13,17 @@
 // DO NOT directly modify the state in actions.
 // Please use commit() to update the state.
 
-// import * as types from './mutation-types';
-import * as config from '@/config';
-import * as cc from "@/config/constants";
-import bus from "@/utils/event";
-
 export default {
-  registerWeb3 ({commit}) {
-    console.log('registerWeb3 Action being executed')
-  },
-  pollWeb3 ({commit}, payload) {
-    console.log('pollWeb3 action being executed')
-    commit('pollWeb3Instance', payload)
-  },
-  getContractInstance ({commit}) {
-    getContract.then(result => {
-      commit('registerContractInstance', result)
-    }).catch(e => console.log(e))
+
+  setLang(context, lang) {
+    console.log('lang:', lang);
+    localStorage.setItem('alphacar_lang', lang);
+    context.commit('setLang', lang);
   },
 
-  setIndex(context, { index }) {
-    context.commit('setIndex', { index: index });
-  },
-  setIndexAsync({ commit }, { index }) {
+  setLangAsync({ commit }, nation, timeout) {
     setTimeout(() => {
-      commit('setIndex', index);
-    }, 1000);
-  },
-  
-  setNetVersion(context, { networkVersion }) {
-    context.commit('setNetVersion', { networkVersion: networkVersion });
-    context.commit('setNetInfo', { netInfo: config.network[networkVersion] });
+      commit('setLang', nation);
+    }, timeout);
   },
 };

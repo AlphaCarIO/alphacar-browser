@@ -18,8 +18,8 @@
   </el-col>
   <el-col :span="2">
     <div style="margin-left: 50px; margin-top: 35px;">
-    <el-select class="nation_s" v-model="nation" slot="prepend" @change="onChange" placeholder="Select">
-      <el-option v-for="item in nations" :key="item.value" :value="item.value" :label="item.label"></el-option>
+    <el-select class="lang_s" v-model="lang" slot="prepend" @change="onChange" placeholder="Select">
+      <el-option v-for="item in langs" :key="item.value" :value="item.value" :label="item.label"></el-option>
     </el-select>
     </div>
   </el-col>
@@ -34,7 +34,7 @@
   width: 150px;
 }
 
-.nation_s.el-select {
+.lang_s.el-select {
   width: 110px;
 }
 
@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      nations: [
+      langs: [
         {
           value: "cn",
           label: "简体中文"
@@ -109,7 +109,7 @@ export default {
       search_type: "0",
       page: 1,
       page_size: 5,
-      nation: "cn"
+      lang: ""
     };
   },
   mounted() {
@@ -135,7 +135,9 @@ export default {
     }
     */
 
-    this.nation = this.$i18n.locale;
+    this.lang = this.$store.getters.lang;
+    this.onChange();
+    //this.$store.dispatch('setLang', this.lang);
 
   },
   watch: {
@@ -143,7 +145,8 @@ export default {
   },
   methods: {
     onChange() {
-      this.$i18n.locale = this.nation;
+      this.$i18n.locale = this.lang;
+      this.$store.dispatch('setLang', this.lang);
       bus.$emit(cc.ON_NATION_CHANGE, null);
     },
 

@@ -5,7 +5,7 @@ import messages from './langs'
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-    locale: localStorage.lang || 'en',
+    locale: localStorage.alphacar_lang || 'en',
     messages,
 })
 

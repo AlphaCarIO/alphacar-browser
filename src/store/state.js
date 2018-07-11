@@ -11,16 +11,7 @@
 import { mapState } from 'vuex';
 
 export default () => ({
-  web3: {
-    isInjected: false,
-    web3Instance: null,
-    networkId: null,
-    coinbase: null,
-    balance: null,
-    error: null
+  app_info: {
+    lang: '',
   },
-  contractInstance: null,
-
-  curr_index: '',
-  netInfo: null,
 });

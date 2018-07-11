@@ -7,20 +7,18 @@
 
 export default {
 
-  web3: state => {
-    return state.web3;
-  },
+  lang: state => {
 
-  currInd: state => {
-    return state.curr_index;
-  },
+    if (state.app_info.lang == undefined || state.app_info.lang == null || state.app_info.lang == '') {
+      let local_lang = localStorage.getItem('alphacar_lang');
+      let lang = 'en'
+      if (local_lang != undefined && local_lang != "") {
+        lang = local_lang;
+      }
+      return lang;
+    }
 
-  networkVersion: state => {
-    return state.networkVersion;
+    return state.app_info.lang;
   },
-
-  netInfo: state => {
-    return state.netInfo;
-  }
 
 };
