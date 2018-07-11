@@ -68,7 +68,9 @@
           ],
           yAxis: [
             {
-              type: 'value'
+              type: 'value',
+              minInterval : 1,
+              boundaryGap : [ 0, 0.1 ],
             }
           ],
           series: [

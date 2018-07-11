@@ -2,8 +2,9 @@
 <div class="content">
   <el-table class="latest_table"
     :data="tableData"
+    @row-click="handleRowClick"
     border
-    style="width: 100%;min-height: 500px;">
+    style="width: 100%;min-height: 300px;">
     <el-table-column
       prop="ubi_code"
       :label="tbl_ubi_code"
@@ -26,9 +27,9 @@
     </el-table-column>
     <el-table-column
       :label="tbl_duration"
-      width="200">
+      width="230">
       <template slot-scope="scope">
-        <div>{{ scope.row.start_date }}-{{ scope.row.end_date }}</div>
+        <div>{{ scope.row.start_date }}&nbsp;---&nbsp;{{ scope.row.end_date }}</div>
       </template>
     </el-table-column>
     <el-table-column
@@ -51,7 +52,7 @@
   font-size: 30px;
   color: #ffffff;
   width: 100%;
-  height: 100%;
+  height: 300px;
   text-align: center;
 }
 
@@ -97,14 +98,15 @@ export default {
     };
   },
   created() {
-    bus.$on(cc.DO_SEARCH, query_cond => {
-      //console.log('on DO_SEARCH query_cond=', query_cond);
-      this.fetchData();
-    });
     this.fetchData();
   },
   mounted() {},
   methods: {
+
+    handleRowClick(row, event, column) {
+      console.log('row:', row, ' column:', column);
+      this.$router.push({ path: "/ubi_detail/" + row.ubi_code });
+    },
 
     fetchData() {
       let self = this;

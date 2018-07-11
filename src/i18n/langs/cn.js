@@ -3,7 +3,9 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 const cn = {
   message : {
     title: '阿尔法车链',
+    copyright: '© 2018 AlphaCar.IO 版权所有',
     loading: "加载中...",
+    no_ubi_info: "没有相应UBI信息",
     Back: "返回",
     search_type_all: '全部',
     search_type_ubi_code: '保单号',
@@ -11,8 +13,9 @@ const cn = {
     search_type_user_name: '用户名',
     search_type_driving_license: '驾照',
     Transactions: '交易',
-    TxsPerDay: '每日交易数',
+    TxsPerDay: '每日交易量',
     PlzInput: "请输入...",
+    ubi_info: '保单详细信息',
     tbl_ubi_code: "保单号",
     tbl_name: "用户名",
     tbl_driving_license: "驾照",

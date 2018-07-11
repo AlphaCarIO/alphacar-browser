@@ -1,10 +1,9 @@
 <template>
-<div class="bg_layer">
-<div class="content"> 
+<div class="content">
   <el-row type="flex" :gutter="20">
     <el-col :span="12">
       <div class="line1 grid-content bg-purple">
-        <v-curr_ubiinfo></v-curr_ubiinfo>
+        <v-token_price></v-token_price>
       </div>
     </el-col>
     <el-col :span="12">
@@ -21,13 +20,12 @@
     </el-col>
   </el-row>
 </div>
-</div>
 </template>
-<style scoped>
 
+<style scoped>
 .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
+  padding: 10px 0;
+  background-color: #f9fafc;
 }
 
 .el-row {
@@ -65,21 +63,20 @@
   font-size: 30px;
   color: #ffffff;
   width: 100%;
-  height: 100%;
 }
 </style>
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
-import curr_ubiinfo from '@/components/index/curr_ubiinfo.vue';
-import txs_history from '@/components/index/txs_history.vue';
-import latest_ubiinfos from '@/components/index/latest_ubiinfos.vue';
+import token_price from "@/components/index/token_price.vue";
+import txs_history from "@/components/index/txs_history.vue";
+import latest_ubiinfos from "@/components/index/latest_ubiinfos.vue";
 
 export default {
   components: {
-    'v-curr_ubiinfo': curr_ubiinfo,
-    'v-charts': txs_history,
-    'v-latest_ubiinfos': latest_ubiinfos,
+    "v-token_price": token_price,
+    "v-charts": txs_history,
+    "v-latest_ubiinfos": latest_ubiinfos
   },
   data() {
     return {};

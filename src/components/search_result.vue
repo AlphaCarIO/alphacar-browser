@@ -26,9 +26,9 @@
     </el-table-column>
     <el-table-column
       :label="tbl_duration"
-      width="200">
+      width="250">
       <template slot-scope="scope">
-        <div>{{ scope.row.start_date }}-{{ scope.row.end_date }}</div>
+        <div>{{ scope.row.start_date }}&nbsp;---&nbsp;{{ scope.row.end_date }}</div>
       </template>
     </el-table-column>
     <el-table-column
@@ -92,10 +92,8 @@
 .result_pagination .el-pagination__jump {
   color: #fbfafc !important;
 }
-
 </style>
 <style scoped>
-
 .content {
   font-size: 30px;
   color: #ffffff;
@@ -109,12 +107,13 @@
   margin-top: 2px;
 }
 
-.el-table th, .el-table tr {
-  background-color:transparent !important;
+.el-table th,
+.el-table tr {
+  background-color: transparent !important;
 }
 
 .el-table {
-  background-color:transparent !important;
+  background-color: transparent !important;
 }
 
 .bk_btn {
@@ -125,42 +124,41 @@
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
 import qs from "qs";
-import * as app_config from '@/config/app_config'
+import * as app_config from "@/config/app_config";
 
 export default {
-  components: {
-  },
+  components: {},
   computed: {
     tbl_ubi_code: function() {
-      return this.$t("message.tbl_ubi_code")
+      return this.$t("message.tbl_ubi_code");
     },
     tbl_name: function() {
-      return this.$t("message.tbl_name")
+      return this.$t("message.tbl_name");
     },
     tbl_driving_license: function() {
-      return this.$t("message.tbl_driving_license")
+      return this.$t("message.tbl_driving_license");
     },
     tbl_vincode: function() {
-      return this.$t("message.tbl_vincode")
+      return this.$t("message.tbl_vincode");
     },
     tbl_duration: function() {
-      return this.$t("message.tbl_duration")
+      return this.$t("message.tbl_duration");
     },
     tbl_hash: function() {
-      return this.$t("message.tbl_hash")
+      return this.$t("message.tbl_hash");
     }
   },
   data() {
     return {
       ipfs_addr: app_config.ipfs_server_addr,
       total_count: 0,
-      greeting_msg: '',
+      greeting_msg: "",
       tableData: [],
       page: 1,
       page_sizes: [5, 10, 20, 50],
       page_size: 5,
       search_type: 0,
-      search_txt: '',
+      search_txt: ""
     };
   },
   created() {
@@ -172,52 +170,49 @@ export default {
     */
     this.fetchData();
   },
-  mounted() {
-  },
+  mounted() {},
   watch: {
-    '$route': 'fetchData'
+    $route: "fetchData"
   },
   methods: {
-
     onSearch() {
       let self = this;
 
-      let query_cond = { 
-        search_type: self.search_type, 
-        search_txt: self.search_txt, 
+      let query_cond = {
+        search_type: self.search_type,
+        search_txt: self.search_txt,
         page: self.page,
         page_size: self.page_size
-      }
+      };
       self.$router.push({
         path: "/search",
         query: query_cond
       });
-      
     },
 
     handleSizeChange(val) {
-      this.page_size = val
-      this.page = 1
+      this.page_size = val;
+      this.page = 1;
       /*
       bus.$emit(cc.ON_PAGE_CHANGE, this.page);
       bus.$emit(cc.ON_PAGE_SIZE_CHANGE, val);
       */
-      this.onSearch()
+      this.onSearch();
     },
 
     handleCurrentChange(val) {
-      this.page = val
+      this.page = val;
       //bus.$emit(cc.ON_PAGE_CHANGE, val);
-      this.onSearch()
+      this.onSearch();
     },
 
-    fetchData () {
+    fetchData() {
       let self = this;
       let search_type = self.$route.query.search_type;
       let search_txt = self.$route.query.search_txt;
       let page = parseInt(self.$route.query.page);
       let page_size = parseInt(self.$route.query.page_size);
-      console.log('page=', page, ' page_size=', page_size);
+      console.log("page=", page, " page_size=", page_size);
 
       if (search_type != undefined) {
         self.search_type = search_type;
@@ -232,37 +227,44 @@ export default {
       }
 
       if (self.page < 1) {
-        self.page = 1
+        self.page = 1;
       }
 
-      if (page_size == undefined || isNaN(page_size) || self.page_sizes.indexOf(page_size) == -1) {
+      if (
+        page_size == undefined ||
+        isNaN(page_size) ||
+        self.page_sizes.indexOf(page_size) == -1
+      ) {
         page_size = self.page_sizes[0];
       }
       self.page_size = page_size;
 
       let params = {
-        'search_type': self.search_type,
-        'search_txt': self.search_txt,
-        'page': self.page - 1,
-        'page_size': self.page_size,
-      }
-      console.log('params=', params);
+        search_type: self.search_type,
+        search_txt: self.search_txt,
+        page: self.page - 1,
+        page_size: self.page_size
+      };
+      console.log("params=", params);
 
-      self.$http.get('/ubi_info/list?' + qs.stringify(params)).then(response => {
+      self.$http.get("/ubi_info/list?" + qs.stringify(params)).then(
+        response => {
           //console.log('response:', response);
           if (response.status == 200) {
             self.total_count = response.data.data.total_count;
             self.tableData = response.data.data.lst;
           }
-　　　　}, response => {
-　　　　　　console.log(response);
-　　　　});
+        },
+        response => {
+          console.log(response);
+        }
+      );
     },
 
     onBack() {
       let self = this;
-      self.$router.push({path: '/'});
+      self.$router.push({ path: "/" });
     }
-  },
+  }
 };
 </script>

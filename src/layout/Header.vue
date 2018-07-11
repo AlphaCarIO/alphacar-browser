@@ -9,7 +9,7 @@
   <el-col :span="17">
     <div style="margin-left: 250px; margin-top: 35px;">
   <el-input :placeholder="input_holder" v-model="search_txt" @keyup.enter.native="onSearch" class="input-with-select">
-    <el-select v-model="search_type" slot="prepend" placeholder="Select">
+    <el-select class="type_s" v-model="search_type" slot="prepend" placeholder="Select">
       <el-option v-for="item in options" :key="item.value" :value="item.value" :label="item.label"></el-option>
     </el-select>
     <el-button slot="append" @click="onSearch()" icon="el-icon-search"></el-button>
@@ -30,18 +30,20 @@
 
 <style>
 
-.el-select .el-input {
-  width: 120px;
+.type_s.el-select {
+  width: 150px;
 }
+
+.nation_s.el-select {
+  width: 110px;
+}
+
 .input-with-select .el-input-group__prepend {
   background-color: #dcdfe6;
 }
 </style>
 
 <style scoped>
-.nation_s {
-  width: 60px !important;
-}
 
 .logo_div {
   cursor: pointer;
@@ -96,7 +98,7 @@ export default {
       nations: [
         {
           value: "cn",
-          label: "zh-CN"
+          label: "简体中文"
         },
         {
           value: "en",

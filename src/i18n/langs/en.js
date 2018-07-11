@@ -3,7 +3,9 @@ import enLocale from 'element-ui/lib/locale/lang/en'
 const en = {
   message : {
     title: 'AlphaCar',
+    copyright: '© 2018 AlphaCar.IO. All rights reserved.',
     loading: "Loading...",
+    no_ubi_info: "No Related UBI Detail Infomation",
     Back: "Back",
     search_type_all: 'All',
     search_type_ubi_code: 'UBI Code',
@@ -11,8 +13,9 @@ const en = {
     search_type_user_name: 'User Name',
     search_type_driving_license: 'Driving License',
     Transactions: 'Transactions',
-    TxsPerDay: 'Tx Per Day',
+    TxsPerDay: 'Tx Count Per Day',
     PlzInput: "Please Input...",
+    ubi_info: 'UBI Detail Infomation',
     tbl_ubi_code: "UBI Code",
     tbl_name: "User Name",
     tbl_driving_license: "Driving License",

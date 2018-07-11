@@ -57,8 +57,8 @@ export default {
 
 .my_main {
   margin-top: 0px;
-  /*height: 640px !important;*/
   height: 100%;
+  height: 640px !important;
   padding: 0% !important;
 }
 

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Index from '@/components/index.vue'
-import Result from '@/components/result.vue'
+import SearchResult from '@/components/search_result.vue'
+import UBIDetail from '@/components/ubi_detail.vue'
 
 Vue.use(Router)
 
@@ -14,7 +15,11 @@ export default new Router({
         },
         {
           path: '/search',
-          component: Result
+          component: SearchResult
+        },
+        {
+          path: '/ubi_detail/:ubi_code',
+          component: UBIDetail
         }
   ]
 })

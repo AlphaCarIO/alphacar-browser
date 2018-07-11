@@ -1,6 +1,6 @@
 <template>
 <div class="lc_f">
-Copyright © 2018 AlphaCar.IO. All Rights Reserved.
+{{ $t("message.copyright") }}
 </div>
 </template>
 
