@@ -1,24 +1,18 @@
 <template>
-<div class="content">
-  <el-row type="flex" :gutter="20">
-    <el-col :span="12">
-      <div class="line1 grid-content bg-purple">
-        <v-token_price></v-token_price>
+<div class="container">
+  <div class="row">
+      <div class="col-sm">
+        <token_price></token_price>
       </div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content bg-purple">
-        <v-charts></v-charts>
+      <div class="col-sm">
+        <txs_history></txs_history>
       </div>
-    </el-col>
-  </el-row>
-  <el-row type="flex" :gutter="20">
-    <el-col :span="24">
-      <div class="line2 grid-content bg-purple">
-        <v-latest_ubiinfos></v-latest_ubiinfos>
+  </div>
+  <div class="row">
+      <div class="col-sm">
+        <latest_ubiinfos></latest_ubiinfos>
       </div>
-    </el-col>
-  </el-row>
+  </div>
 </div>
 </template>
 
@@ -68,15 +62,16 @@
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
+
 import token_price from "@/components/index/token_price.vue";
 import txs_history from "@/components/index/txs_history.vue";
 import latest_ubiinfos from "@/components/index/latest_ubiinfos.vue";
 
 export default {
   components: {
-    "v-token_price": token_price,
-    "v-charts": txs_history,
-    "v-latest_ubiinfos": latest_ubiinfos
+    token_price,
+    txs_history,
+    latest_ubiinfos
   },
   data() {
     return {};

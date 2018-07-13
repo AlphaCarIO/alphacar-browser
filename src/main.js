@@ -2,18 +2,26 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-
 import App from './App'
-import store from './store';
+import store from './store'
 import router from './router'
 import request from '@/utils/request'
 
-import i18n from './i18n/i18n';
+import i18n from './i18n/i18n'
+
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+Vue.use(BootstrapVue);
+
+/*
+import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'popper.js/dist/popper'
+import 'bootstrap/dist/js/bootstrap.min'
+*/
 
 Vue.prototype.$http = request
-Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

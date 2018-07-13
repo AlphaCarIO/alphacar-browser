@@ -28,3 +28,34 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+npm install bootstrap --save
+npm install node-sass --save --dev
+npm install sass-loader --save --only=dev
+
+{
+     test: /\.vue$/,
+     loader: 'vue-loader',
+     options: {
+         loaders: {
+             'scss': 'vue-style-loader!css-loader!sass-loader',
+             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+         }
+     }
+ }
+
+{
+  test: /\.scss$/,
+  use: [
+    {
+      loader: 'css-loader'
+    },
+    {
+      loader: 'sass-loader'
+    }
+  ]
+}
+
+<style lang="scss">
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+</style>

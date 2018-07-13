@@ -1,30 +1,48 @@
 <template>
-<div class="lc_h">
-<el-row>
-  <el-col :span="2">
-    <div @click="onHome" class="logo_div" style="margin-left: 50px; margin-top: 20px">
-      <img height="80px" src="@/assets/logo.png" />
-    </div>
-  </el-col>
-  <el-col :span="17">
-    <div style="margin-left: 250px; margin-top: 35px;">
-  <el-input :placeholder="input_holder" v-model="search_txt" @keyup.enter.native="onSearch" class="input-with-select">
-    <el-select class="type_s" v-model="search_type" slot="prepend" placeholder="Select">
-      <el-option v-for="item in options" :key="item.value" :value="item.value" :label="item.label"></el-option>
-    </el-select>
-    <el-button slot="append" @click="onSearch()" icon="el-icon-search"></el-button>
-  </el-input>
-    </div>
-  </el-col>
-  <el-col :span="2">
-    <div style="margin-left: 50px; margin-top: 35px;">
-    <el-select class="lang_s" v-model="lang" slot="prepend" @change="onChange" placeholder="Select">
-      <el-option v-for="item in langs" :key="item.value" :value="item.value" :label="item.label"></el-option>
-    </el-select>
-    </div>
-  </el-col>
-</el-row>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" size="sm">
 
+  <a class="navbar-brand" href="#/">
+    <div class="container"><b-img  width="150" src="../assets/logo.png" /></div>
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#/">{{$t("message.menu_home")}}<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/">{{$t("message.menu_token")}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/">{{$t("message.menu_transaction")}}</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{$t("message.menu_game")}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#/game">{{$t("message.menu_game1")}}</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#/game">{{$t("message.menu_game2")}}</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/">{{$t("message.menu_about_us")}}</a>
+      </li>
+    </ul>
+    <b-select v-model="search_type" :options="search_types" class="col-2" />
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" :placeholder="input_holder" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" click="onSearch" type="submit">Search</button>
+    </form>
+  </div>
+  <b-select v-model="lang" :options="langs" @change="onChange" class="col-1" />
+</nav>
 </div>
 </template>
 
@@ -44,17 +62,10 @@
 </style>
 
 <style scoped>
-
-.logo_div {
-  cursor: pointer;
-}
-
-.lc_h {
-  text-align: left;
-  font-size: 30px;
-  color: #ffffff;
-  height: 100%;
-  position: relative;
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 </style>
 
@@ -65,32 +76,32 @@ import * as cc from "@/config/constants"
 export default {
   name: "Header",
   computed: {
-    input_holder: function() {
-      return this.$t("message.PlzInput")
-    },
-    options: function() {
+    search_types: function() {
       return [
         {
           value: "0",
-          label: this.$t("message.search_type_all")
+          text: this.$t("message.search_type_all")
         },
         {
           value: "1",
-          label: this.$t("message.search_type_ubi_code")
+          text: this.$t("message.search_type_ubi_code")
         },
         {
           value: "2",
-          label: this.$t("message.search_type_vincode")
+          text: this.$t("message.search_type_vincode")
         },
         {
           value: "3",
-          label: this.$t("message.search_type_user_name")
+          text: this.$t("message.search_type_user_name")
         },
         {
           value: "4",
-          label: this.$t("message.search_type_driving_license")
+          text: this.$t("message.search_type_driving_license")
         }
       ]
+    },
+    input_holder: function() {
+      return this.$t("message.PlzInput")
     }
   },
   data() {
@@ -98,11 +109,11 @@ export default {
       langs: [
         {
           value: "cn",
-          label: "简体中文"
+          text: "CN"
         },
         {
           value: "en",
-          label: "en-US"
+          text: "EN"
         },
       ],
       search_txt: "",
@@ -136,16 +147,15 @@ export default {
     */
 
     this.lang = this.$store.getters.lang;
-    this.onChange();
-    //this.$store.dispatch('setLang', this.lang);
+    this.onChange(this.lang);
 
   },
   watch: {
     $route: "fetchData"
   },
   methods: {
-    onChange() {
-      this.$i18n.locale = this.lang;
+    onChange(val) {
+      this.$i18n.locale = val;
       this.$store.dispatch('setLang', this.lang);
       bus.$emit(cc.ON_NATION_CHANGE, null);
     },
