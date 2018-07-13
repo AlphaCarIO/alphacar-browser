@@ -1,10 +1,6 @@
 <template>
   <div class="chart-container">
-    <el-row>
-      <el-col :span="24" class="chart chart_left">
-        <div id="userChart" style="height: 250px" >图表加载失败</div>
-      </el-col>
-    </el-row>
+    <div id="userChart" style="height: 250px" >图表加载失败</div>
   </div>
 </template>
 <script>

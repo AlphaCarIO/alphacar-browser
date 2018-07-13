@@ -1,12 +1,14 @@
 <template>
-<div class="container">
+<div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" size="sm">
 
   <a class="navbar-brand" href="#/">
     <div class="container"><b-img  width="150" src="../assets/logo.png" /></div>
   </a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -19,10 +21,11 @@
         <a class="nav-link" href="#/">{{$t("message.menu_token")}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#/">{{$t("message.menu_transaction")}}</a>
+        <a class="nav-link" href="#/search?search_type=0&search_txt=&page=1&page_size=5">{{$t("message.menu_transaction")}}</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{$t("message.menu_game")}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,7 +41,8 @@
     <b-select v-model="search_type" :options="search_types" class="col-2" />
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" :placeholder="input_holder" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" click="onSearch" type="submit">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" @click="onSearch"
+        type="submit">{{$t("message.search_btn")}}</button>
     </form>
   </div>
   <b-select v-model="lang" :options="langs" @change="onChange" class="col-1" />

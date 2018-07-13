@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div>
   <b-table striped hover responsive :items="tableData" :fields="fields">
     <template slot="index" slot-scope="data">
       {{data.index + 1}}

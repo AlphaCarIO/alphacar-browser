@@ -1,5 +1,5 @@
 <template>
-<div class="container" style="text-align: center">
+<div style="text-align: center">
 {{ $t("message.copyright") }}
 </div>
 </template>

@@ -19,6 +19,7 @@ const en = {
     search_type_vincode: 'VIN Code',
     search_type_user_name: 'User Name',
     search_type_driving_license: 'Driving License',
+    search_btn: 'Search',
     Transactions: 'Transactions',
     TxsPerDay: 'Tx Count Per Day',
     PlzInput: "Please Input...",

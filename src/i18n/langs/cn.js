@@ -19,6 +19,7 @@ const cn = {
     search_type_vincode: '车架号',
     search_type_user_name: '用户名',
     search_type_driving_license: '驾照',
+    search_btn: '搜索',
     Transactions: '交易',
     TxsPerDay: '每日交易量',
     PlzInput: "请输入...",

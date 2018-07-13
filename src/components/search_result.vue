@@ -1,110 +1,64 @@
 <template>
+<div style="align:center; ">
 <div v-if="show_cond == 0" class="loading">
   {{ $t("message.loading") }}
 </div>
-<div v-else-if="show_cond == 1" class="content">
-  <el-table class='result_table'
-    :data="tableData"
-    @row-click="handleRowClick"
-    border
-    style="width: 100%;min-height: 500px;">
-    <el-table-column
-      prop="ubi_code"
-      :label="tbl_ubi_code"
-      width="100">
-    </el-table-column>
-    <el-table-column
-      prop="user.name"
-      :label="tbl_name"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="user.driving_license"
-      :label="tbl_driving_license"
-      width="130">
-    </el-table-column>
-    <el-table-column
-      prop="car_info.vin_code"
-      :label="tbl_vincode"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      :label="tbl_duration"
-      width="250">
-      <template slot-scope="scope">
-        <div>{{ scope.row.start_date }}&nbsp;---&nbsp;{{ scope.row.end_date }}</div>
-      </template>
-    </el-table-column>
-    <el-table-column
-      :label="tbl_hash">
-      <template slot-scope="scope">
-        <div v-if="scope.row.hash=='' || scope.row.hash==undefined">
+<div v-else-if="show_cond == 1">
+
+  <b-table striped hover responsive :items="tableData" :fields="fields">
+    <template slot="index" slot-scope="data">
+      {{ data.index + 1 }}
+    </template>
+    <template slot="duration" slot-scope="data">
+      {{ data.item.start_date }}---{{ data.item.end_date }}
+    </template>
+    <template slot="hash" slot-scope="data">
+      <div v-if="data.item.hash=='' || data.item.hash==undefined">
           {{ $t("message.empty_hash") }}
         </div>
         <div v-else>
           <div>
-          <a :href="ipfs_addr + '/ipfs/' + scope.row.hash">{{ ipfs_addr }}/ipfs/{{ scope.row.hash }}
+          <a :href="ipfs_addr + '/ipfs/' + data.item.hash">{{ ipfs_addr }}/ipfs/{{ data.item.hash }}
           </a>
         </div>
         <div>
-          <a :href="'https://gateway.ipfs.guide/' + scope.row.hash">https://gateway.ipfs.guide/{{ scope.row.hash }}
+          <a :href="'https://gateway.ipfs.guide/' + data.item.hash">https://gateway.ipfs.guide/{{ data.item.hash }}
           </a>
         </div>
         <div>
-          <a :href="'http://ipfs.io/ipfs/' + scope.row.hash">http://ipfs.io/ipfs/{{ scope.row.hash }}
+          <a :href="'http://ipfs.io/ipfs/' + data.item.hash">http://ipfs.io/ipfs/{{ data.item.hash }}
           </a>
         </div>
         </div>
-      </template>
-    </el-table-column>
-  </el-table>
-  <div class="pagination_div">
-    <el-pagination class="result_pagination"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="page"
-      :page-sizes="page_sizes"
-      :page-size="page_size"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total_count">
-    </el-pagination>
+    </template>
+  </b-table>
+  <div class="row">
+  <div class="col-3">
   </div>
-  <div style="align:center; margin-top:5px; margin-bottom:10px;">
-    <el-button class="bk_btn" @click="onBack" plain>{{$t("message.Back")}}</el-button>
+  <div class="col">
+    <div class="row">
+      <div class="col-2">
+      </div>
+      <b-select @change="handleSizeChange" v-model="page_size" :options="page_sizes" class="col-2" />
+      <div class="col-6">
+        <b-pagination align="center" @change='handleCurrentChange' size="md" 
+        :total-rows="total_count" v-model="page" :per-page="page_size">
+        </b-pagination>
+      </div>
+      <div class="col-2">
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+  </div>
+  </div>
+  </div>
+  <div style="text-align:center; margin-top:5px;">
+    <b-button class="bk_btn" @click="onBack" plain>{{ $t("message.Back") }}</b-button>
   </div>
 </div>
 </template>
 
-<style>
-.result_table.el-table th {
-  cursor: pointer;
-}
-
-.result_table.el-table th {
-  background: #000000ff !important;
-  font-size: middle;
-}
-
-.result_table.el-table tr {
-  cursor: pointer;
-}
-
-.result_pagination .el-pagination {
-  color: #0c0316 !important;
-}
-
-.result_pagination .el-pagination__total {
-  color: #fbfafc !important;
-}
-
-.result_pagination .el-pagination__sizes {
-  color: #fbfafc !important;
-}
-
-.result_pagination .el-pagination__jump {
-  color: #fbfafc !important;
-}
-</style>
 <style scoped>
 .content {
   font-size: 30px;
@@ -133,25 +87,38 @@ import * as app_config from "@/config/app_config";
 
 export default {
   components: {},
-  computed: {
-    tbl_ubi_code: function() {
-      return this.$t("message.tbl_ubi_code");
-    },
-    tbl_name: function() {
-      return this.$t("message.tbl_name");
-    },
-    tbl_driving_license: function() {
-      return this.$t("message.tbl_driving_license");
-    },
-    tbl_vincode: function() {
-      return this.$t("message.tbl_vincode");
-    },
-    tbl_duration: function() {
-      return this.$t("message.tbl_duration");
-    },
-    tbl_hash: function() {
-      return this.$t("message.tbl_hash");
-    }
+  computed: {fields: function() {
+        return [
+        {
+          key : 'index',
+          label: this.$t("message.tbl_index")
+        },
+        {
+          key : 'ubi_code',
+          label: this.$t("message.tbl_ubi_code")
+        },
+        {
+          key : 'user.name',
+          label: this.$t("message.tbl_name")
+        },
+        {
+          key : 'user.driving_license',
+          label: this.$t("message.tbl_driving_license")
+        },
+        {
+          key : 'car_info.vin_code',
+          label: this.$t("message.tbl_vincode")
+        },
+        {
+          key : 'duration',
+          label: this.$t("message.tbl_duration")
+        },
+        {
+          key : 'hash',
+          label: this.$t("message.tbl_hash")
+        }
+      ]
+      },
   },
   data() {
     return {
