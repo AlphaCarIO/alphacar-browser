@@ -113,10 +113,8 @@
       }
 
       self.$http.post('/ubi_info/tx_count_lst', dates).then(response => {
-            console.log(response);
           if (response.status == 200) {
             self.datas = response.data.data.txs_count;
-            console.log(self.datas);
             this.getUserChartInit();
           }
 　　　　}, response => {

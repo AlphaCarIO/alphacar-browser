@@ -1,53 +1,29 @@
 <template>
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" size="sm">
+      <v-toolbar color="blue lighten-1" app>
+      <img src="@/assets/logo.png" width='200rem' alt="">
+      <v-spacer></v-spacer>
+      <v-text-field hide-details prepend-icon="search"
+        single-line></v-text-field>
+      <v-toolbar-items>
+        <v-btn flat href="#/">{{$t("message.menu_home")}}</v-btn>
+        <v-btn flat href="#/token">{{$t("message.menu_token")}}</v-btn>
+        <v-btn flat href="#/search?search_type=0&search_txt=&page=1&page_size=5">{{$t("message.menu_transaction")}}</v-btn>
+        <v-menu open-on-hover bottom offset-y>
+          <v-btn slot="activator" color="primary" dark>
+            {{ $t("message.menu_game") }}
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(item, index) in game_list" :key="index">
+              <v-list-tile-title>
+                <a :href="item.url">{{ item.title }}</a>
+              </v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
+        <v-btn flat href="#/">{{$t("message.menu_about_us")}}</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
 
-  <a class="navbar-brand" href="#/">
-    <div class="container"><b-img  width="150" src="../assets/logo.png" /></div>
-  </a>
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#/">{{$t("message.menu_home")}}<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/">{{$t("message.menu_token")}}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/search?search_type=0&search_txt=&page=1&page_size=5">{{$t("message.menu_transaction")}}</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{$t("message.menu_game")}}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#/game">{{$t("message.menu_game1")}}</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#/game">{{$t("message.menu_game2")}}</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/">{{$t("message.menu_about_us")}}</a>
-      </li>
-    </ul>
-    <b-select v-model="search_type" :options="search_types" class="col-2" />
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" :placeholder="input_holder" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" @click="onSearch"
-        type="submit">{{$t("message.search_btn")}}</button>
-    </form>
-  </div>
-  <b-select v-model="lang" :options="langs" @change="onChange" class="col-1" />
-</nav>
-</div>
 </template>
 
 <style>
@@ -110,6 +86,16 @@ export default {
   },
   data() {
     return {
+      game_list: [
+        { 
+          title: this.$t("message.menu_game1"),
+          url: "#/game"
+        }, 
+        { 
+          title: this.$t("message.menu_game2"),
+          url: "#/game"
+        }
+      ],
       langs: [
         {
           value: "cn",
@@ -136,19 +122,6 @@ export default {
     bus.$on(cc.ON_PAGE_CHANGE, (new_page) => {
       this.page = new_page;
     })
-
-    /*
-    if (this.$route.path == "/search") {
-      let search_type = this.$route.query.search_type.trim();
-      let search_txt = this.$route.query.search_txt.trim();
-      let page = parseInt(this.$route.query.page);
-      let page_size = parseInt(this.$route.query.page_size);
-      this.search_type = search_type;
-      this.search_txt = search_txt;
-      this.page = page;
-      this.page_size = page_size;
-    }
-    */
 
     this.lang = this.$store.getters.lang;
     this.onChange(this.lang);
@@ -193,8 +166,6 @@ export default {
         path: "/search",
         query: query_cond
       });
-
-      //bus.$emit(cc.DO_SEARCH, query_cond);
       
     }
   }

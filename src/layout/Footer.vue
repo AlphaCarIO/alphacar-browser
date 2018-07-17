@@ -1,10 +1,17 @@
 <template>
-<div style="text-align: center">
+<v-footer justify-center row wrap>
+<v-flex   blue lighten-1
+          py-3
+          text-xs-center
+          white--text
+          xs12>
 {{ $t("message.copyright") }}
-</div>
+</v-flex>
+</v-footer>
 </template>
 
 <style scoped>
+
 .lc_f {
   margin-top: 0px;
   padding-top: 10px;

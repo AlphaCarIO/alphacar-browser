@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Index from '@/components/index.vue'
-import SearchResult from '@/components/search_result.vue'
-import UBIDetail from '@/components/ubi_detail.vue'
+import Index from '@/components/Index.vue'
+import SearchResult from '@/components/SearchResult.vue'
+import UBIDetail from '@/components/UbiDetail.vue'
 import Game from '@/components/Game.vue'
 
 Vue.use(Router)

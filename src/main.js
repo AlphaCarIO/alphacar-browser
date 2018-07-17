@@ -12,8 +12,11 @@ import i18n from './i18n/i18n'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue)
 
-Vue.use(BootstrapVue);
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+Vue.use(Vuetify)
 
 /*
 import 'bootstrap/dist/css/bootstrap.min.css'

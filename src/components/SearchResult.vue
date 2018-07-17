@@ -183,7 +183,6 @@ export default {
       let search_txt = self.$route.query.search_txt;
       let page = parseInt(self.$route.query.page);
       let page_size = parseInt(self.$route.query.page_size);
-      console.log("page=", page, " page_size=", page_size);
 
       if (search_type != undefined) {
         self.search_type = search_type;
@@ -216,7 +215,6 @@ export default {
         page: self.page - 1,
         page_size: self.page_size
       };
-      console.log("params=", params);
 
       self.$http.get("/ubi_info/list?" + qs.stringify(params)).then(
         response => {
