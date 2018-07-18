@@ -18,12 +18,6 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 
-/*
-import 'bootstrap/dist/css/bootstrap.min.css'
-//import 'popper.js/dist/popper'
-import 'bootstrap/dist/js/bootstrap.min'
-*/
-
 Vue.prototype.$http = request
 Vue.config.productionTip = false
 

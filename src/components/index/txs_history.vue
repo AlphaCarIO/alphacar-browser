@@ -22,11 +22,13 @@
       InitChartOption() {
 
         let self = this;
-        if (self == null) {
-          console.log('self == null')
+        
+        //self.myChart.showLoading();
+
+        if (self.$i18n == null) {
+          console.log('null i18n')
           return
         }
-        self.myChart.showLoading();
 
         let option = {
           title: {
@@ -84,7 +86,7 @@
           self.myChart.setOption(option, true);
         }
 
-        self.myChart.hideLoading();
+        //self.myChart.hideLoading();
 
       },
       getUserChartInit() {
@@ -108,7 +110,6 @@
       for (var i = 0; i<= days; i++) {
         self.dates.push(dt.format("MMM/Do"));
         dates.push(dt.format("YYYY-MM-DD"));
-        //this.datas.push(Math.floor(50 + Math.random() * Math.floor(500)));
         dt = dt.add(1, 'days');
       }
 

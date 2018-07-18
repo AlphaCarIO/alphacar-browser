@@ -1,13 +1,21 @@
 <template>
-<div>
-  <b-table striped hover responsive :items="tableData" :fields="fields">
-    <template slot="index" slot-scope="data">
-      {{data.index + 1}}
-    </template>
-    <template slot="duration" slot-scope="data">
-      {{data.item.start_date}}---{{data.item.end_date}}
-    </template>
-  </b-table>
+<div style="align:center; ">
+  <div>
+      <v-data-table hide-actions
+        :headers="fields"
+        :items="tableData"
+        :loading="loading"
+        class="elevation-1">
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.ubi_code }}</td>
+          <td class="text-xs-right">{{ props.item.user.name }}</td>
+          <td class="text-xs-right">{{ props.item.user.driving_license }}</td>
+          <td class="text-xs-right">{{ props.item.car_info.vin_code }}</td>
+          <td class="text-xs-right">{{ props.item.start_date }}-{{ props.item.end_date }}</td>
+          <td class="text-xs-right">{{ props.item.hash }}</td>
+        </template>
+      </v-data-table>
+    </div>
 </div>
 </template>
 
@@ -32,69 +40,51 @@ import qs from "qs";
 export default {
   components: {},
   computed: {
-      fields: function() {
+      
+    fields: function() {
         return [
         {
-          key : 'index',
-          label: this.$t("message.tbl_index")
+          value : 'ubi_code',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_ubi_code")
         },
         {
-          key : 'ubi_code',
-          label: this.$t("message.tbl_ubi_code")
+          value : 'user.name',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_name")
         },
         {
-          key : 'user.name',
-          label: this.$t("message.tbl_name")
+          value : 'user.driving_license',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_driving_license")
         },
         {
-          key : 'user.driving_license',
-          label: this.$t("message.tbl_driving_license")
+          value : 'car_info.vin_code',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_vincode")
         },
         {
-          key : 'car_info.vin_code',
-          label: this.$t("message.tbl_vincode")
+          value : 'duration',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_duration")
         },
         {
-          key : 'duration',
-          label: this.$t("message.tbl_duration")
-        },
-        {
-          key : 'hash',
-          label: this.$t("message.tbl_hash")
+          value : 'hash',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_hash")
         }
       ]
-      },
+    },
   },
   data() {
     return {
-      /*
-      fields: [
-        'index',
-        {
-          key : 'ubi_code',
-          label: this.$t("message.tbl_ubi_code")
-        },
-        {
-          key : 'user.name',
-          label: this.$t("message.tbl_name")
-        },
-        {
-          key : 'user.driving_license',
-          label: this.$t("message.tbl_driving_license")
-        },
-        {
-          key : 'car_info.vin_code',
-          label: this.$t("message.tbl_vincode")
-        },
-        {
-          key : 'duration',
-          label: this.$t("message.tbl_duration")
-        },
-        {
-          key : 'hash',
-          label: this.$t("message.tbl_hash")
-        }
-      ],*/
+      loading: true,
       tableData: []
     };
   },
@@ -122,6 +112,7 @@ export default {
         response => {
           if (response.status == 200) {
             self.tableData = response.data.data.lst;
+            self.loading = false;
           }
         },
         response => {

@@ -69,12 +69,10 @@
   opacity: 0.7 !important;
   filter: alpha(opacity=70) !important;
 }
-
 .pagination_div {
   text-align: center;
   margin-top: 2px;
 }
-
 .bk_btn {
   margin: auto;
 }
@@ -84,7 +82,6 @@ import bus from "@/utils/event";
 import * as cc from "@/config/constants";
 import qs from "qs";
 import * as app_config from "@/config/app_config";
-
 export default {
   components: {},
   computed: {fields: function() {
@@ -145,10 +142,8 @@ export default {
     handleRowClick(row, event, column) {
       this.$router.push({ path: "/ubi_detail/" + row.ubi_code });
     },
-
     onSearch() {
       let self = this;
-
       let query_cond = {
         search_type: self.search_type,
         search_txt: self.search_txt,
@@ -160,7 +155,6 @@ export default {
         query: query_cond
       });
     },
-
     handleSizeChange(val) {
       this.page_size = val;
       this.page = 1;
@@ -170,36 +164,29 @@ export default {
       */
       this.onSearch();
     },
-
     handleCurrentChange(val) {
       this.page = val;
       //bus.$emit(cc.ON_PAGE_CHANGE, val);
       this.onSearch();
     },
-
     fetchData() {
       let self = this;
       let search_type = self.$route.query.search_type;
       let search_txt = self.$route.query.search_txt;
       let page = parseInt(self.$route.query.page);
       let page_size = parseInt(self.$route.query.page_size);
-
       if (search_type != undefined) {
         self.search_type = search_type;
       }
-
       if (search_txt != undefined) {
         self.search_txt = search_txt;
       }
-
       if (page != undefined && !isNaN(page)) {
         self.page = page;
       }
-
       if (self.page < 1) {
         self.page = 1;
       }
-
       if (
         page_size == undefined ||
         isNaN(page_size) ||
@@ -208,14 +195,12 @@ export default {
         page_size = self.page_sizes[0];
       }
       self.page_size = page_size;
-
       let params = {
         search_type: self.search_type,
         search_txt: self.search_txt,
         page: self.page - 1,
         page_size: self.page_size
       };
-
       self.$http.get("/ubi_info/list?" + qs.stringify(params)).then(
         response => {
           //console.log('response:', response);
@@ -230,7 +215,6 @@ export default {
         }
       );
     },
-
     onBack() {
       let self = this;
       self.$router.go(-1);

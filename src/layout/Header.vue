@@ -1,32 +1,84 @@
 <template>
-      <v-toolbar color="blue lighten-1" app>
-      <img src="@/assets/logo.png" width='200rem' alt="">
+  <div>
+    <v-toolbar class="hidden-sm-and-down" color="blue lighten-1" app>
+      <img src="@/assets/logo.png" class='logo' @click="onHome" width='200rem' alt="">
       <v-spacer></v-spacer>
-      <v-text-field hide-details prepend-icon="search"
+      <v-text-field @keypress.native="onKeyPress" v-model="search_txt" hide-details prepend-inner-icon="search"
         single-line></v-text-field>
+      <v-btn @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
       <v-toolbar-items>
-        <v-btn flat href="#/">{{$t("message.menu_home")}}</v-btn>
-        <v-btn flat href="#/token">{{$t("message.menu_token")}}</v-btn>
-        <v-btn flat href="#/search?search_type=0&search_txt=&page=1&page_size=5">{{$t("message.menu_transaction")}}</v-btn>
-        <v-menu open-on-hover bottom offset-y>
-          <v-btn slot="activator" color="primary" dark>
-            {{ $t("message.menu_game") }}
-          </v-btn>
-          <v-list>
-            <v-list-tile v-for="(item, index) in game_list" :key="index">
-              <v-list-tile-title>
-                <a :href="item.url">{{ item.title }}</a>
-              </v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-        <v-btn flat href="#/">{{$t("message.menu_about_us")}}</v-btn>
+          <div v-for="(item,i) in items" :key="i" class="blue lighten-1">
+            <div style="height:100%" v-if="item.lvl == 2">
+              <v-menu open-on-hover bottom offset-y>
+              <v-btn flat slot="activator">
+                {{ item.text }}
+              </v-btn>
+              <v-list>
+                <v-list-tile v-for="(sub_item, j) in item.sub_items" :key="j">
+                  <v-list-tile-title>
+                    <a :href="sub_item.url">{{ sub_item.text }}</a>
+                  </v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+              </v-menu>
+            </div>
+            <div style="height:100%" v-else>
+              <v-btn flat :href="item.url">{{ item.text }}</v-btn>
+            </div>
+          </div>
       </v-toolbar-items>
+      <v-select solo style="width=50px;"
+            :items="langs" v-model="lang" @change="onChange"
+          ></v-select>
     </v-toolbar>
+
+    <v-expansion-panel class="hidden-md-and-up" expand>
+      <v-expansion-panel-content>
+          <div slot="header">
+            <img src="@/assets/logo.png" @click="onHome" width='150rem' alt="" />
+          </div>
+          <v-layout row child-flex justify-center align-center wrap>
+            <v-spacer/>
+            <v-flex xs6>
+              <v-text-field v-model="search_txt" hide-details prepend-inner-icon="search"
+              single-line></v-text-field>
+            </v-flex>
+            <v-flex xs3>
+              <v-btn @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
+            </v-flex>
+            <v-spacer/>
+          </v-layout>
+          <div v-for="(item,i) in items" :key="i" class="blue lighten-1">
+            <div v-if="item.lvl == 2">
+              <v-menu open-on-hover bottom offset-y>
+              <v-btn slot="activator">
+                {{ item.text }}
+              </v-btn>
+              <v-list>
+                <v-list-tile v-for="(sub_item, j) in item.sub_items" :key="j">
+                  <v-list-tile-title>
+                    <a :href="sub_item.url">{{ sub_item.text }}</a>
+                  </v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+              </v-menu>
+            </div>
+            <div v-else>
+              <v-btn flat :href="item.url">{{ item.text }}</v-btn>
+            </div>
+          </div>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+  </div>
 
 </template>
 
 <style>
+
+.logo:hover {
+  cursor: pointer;
+}
 
 .type_s.el-select {
   width: 150px;
@@ -56,6 +108,32 @@ import * as cc from "@/config/constants"
 export default {
   name: "Header",
   computed: {
+      items: function() {
+        return [
+        { lvl:1, text: this.$t("message.menu_home"), url: '#/' },
+        { lvl:1, text: this.$t("message.menu_token"), url: '#/token' },
+        { lvl:1, text: this.$t("message.menu_transaction"), 
+          url: '#/search?search_type=0&search_txt=&page=1&page_size=5' },
+        { lvl:2, text: this.$t("message.menu_game"), 
+          sub_items: [ 
+            { text: this.$t("message.menu_game1"), url: '#/game' },
+            { text: this.$t("message.menu_game2"), url: '#/game' } 
+          ] },
+        { lvl:1, text: this.$t("message.menu_about_us"), 
+          url: '#/about_us' },
+      ]
+      },
+      game_list: function() {
+        return [
+        { 
+          title: this.$t("message.menu_game1"),
+          url: "#/game"
+        }, 
+        { 
+          title: this.$t("message.menu_game2"),
+          url: "#/game"
+        }
+      ]},
     search_types: function() {
       return [
         {
@@ -86,16 +164,6 @@ export default {
   },
   data() {
     return {
-      game_list: [
-        { 
-          title: this.$t("message.menu_game1"),
-          url: "#/game"
-        }, 
-        { 
-          title: this.$t("message.menu_game2"),
-          url: "#/game"
-        }
-      ],
       langs: [
         {
           value: "cn",
@@ -132,6 +200,7 @@ export default {
   },
   methods: {
     onChange(val) {
+      console.log(val)
       this.$i18n.locale = val;
       this.$store.dispatch('setLang', this.lang);
       bus.$emit(cc.ON_NATION_CHANGE, null);
