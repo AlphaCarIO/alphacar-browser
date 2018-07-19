@@ -10,7 +10,7 @@
 <div style="text-align: center">
   {{ $t("message.ubi_info") }} 
 </div>
-<div>
+<div style="text-align:center">
   -----------------------------------------------
 </div>
 <div class='small_content'>
@@ -51,8 +51,8 @@
         </div>
 </div>
 </div>
-  <div style="align:center; margin-top:260px; margin-bottom:10px;">
-    <el-button class="bk_btn" @click="onBack" plain>{{$t("message.Back")}}</el-button>
+  <div style="text-align:center; margin-top:5px;">
+    <b-button class="bk_btn" @click="onBack" plain>{{ $t("message.Back") }}</b-button>
   </div>
 </div>
 </template>
@@ -84,7 +84,7 @@
   padding-top: 30px;
   font-size: 30px;
   width: 100%;
-  height: 250px;
+  height: 450px;
   text-align: left;
 }
 
@@ -118,7 +118,7 @@ export default {
       end_date: "",
       hash: "",
       show_cond: 0
-    };
+    }
   },
   created() {
     this.fetchData();

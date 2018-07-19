@@ -23,7 +23,7 @@
 
         let self = this;
         
-        //self.myChart.showLoading();
+        self.myChart.showLoading();
 
         if (self.$i18n == null) {
           console.log('null i18n')
@@ -86,7 +86,7 @@
           self.myChart.setOption(option, true);
         }
 
-        //self.myChart.hideLoading();
+        self.myChart.hideLoading();
 
       },
       getUserChartInit() {

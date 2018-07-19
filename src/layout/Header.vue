@@ -67,6 +67,9 @@
               <v-btn flat :href="item.url">{{ item.text }}</v-btn>
             </div>
           </div>
+      <v-select solo style="width=50px;"
+            :items="langs" v-model="lang" @change="onChange"
+          ></v-select>
       </v-expansion-panel-content>
     </v-expansion-panel>
 

@@ -5,7 +5,7 @@
 </div>
 <div v-else-if="show_cond == 1">
 
-  <b-table striped hover responsive :items="tableData" :fields="fields">
+  <b-table striped hover responsive :items="tableData" :fields="fields" @row-clicked="viewDetail">
     <template slot="index" slot-scope="data">
       {{ data.index + 1 }}
     </template>
@@ -139,8 +139,10 @@ export default {
     $route: "fetchData"
   },
   methods: {
-    handleRowClick(row, event, column) {
-      this.$router.push({ path: "/ubi_detail/" + row.ubi_code });
+    viewDetail(item, index, event) {
+      if (item != undefined && item.ubi_code != undefined) {
+        this.$router.push({ path: "/ubi_detail/" + item.ubi_code });
+      }
     },
     onSearch() {
       let self = this;
