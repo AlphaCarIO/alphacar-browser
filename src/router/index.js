@@ -5,6 +5,7 @@ import Index from '@/components/Index.vue'
 import SearchResult from '@/components/SearchResult.vue'
 import UBIDetail from '@/components/UbiDetail.vue'
 import Game from '@/components/Game.vue'
+import Game2 from '@/components/Game2.vue'
 
 Vue.use(Router)
 
@@ -25,6 +26,10 @@ export default new Router({
         {
           path: '/game',
           component: Game
+        },
+        {
+          path: '/game2',
+          component: Game2
         }
   ]
 })

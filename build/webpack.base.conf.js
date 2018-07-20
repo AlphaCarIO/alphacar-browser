@@ -5,20 +5,17 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+/*
 var phaserModule = path.join(__dirname, '../node_modules/phaser-ce/')
 var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
 var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
-/*
-var jqueryModule = path.join(__dirname, '../node_modules/jquery/')
-var jquery = path.join(jqueryModule, 'dist/jquery.min.js')
-
-var popperModule = path.join(__dirname, '../node_modules/popper.js/')
-var popper = path.join(popperModule, 'dist/popper.min.js')
-
-var bootstrapModule = path.join(__dirname, '../node_modules/bootstrap/')
-var bootstrap = path.join(bootstrapModule, 'dist/bootstrap.min.js')
 */
+
+let phaserModule = path.join(__dirname, '../node_modules/phaser/')
+let phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
+let pixi = path.join(phaserModule, 'build/custom/pixi.js')
+let p2 = path.join(phaserModule, 'build/custom/p2.js')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -29,7 +26,6 @@ module.exports = {
   entry: {
     app: './src/main.js',
     vendor: ['pixi', 'p2', 'phaser'],
-    //vendor: ['pixi', 'p2', 'phaser', jquery, popper, bootstrap],
   },
   output: {
     path: config.build.assetsRoot,
@@ -109,7 +105,7 @@ module.exports = {
         }
       },
       {
-        test: /pixi\.js/,
+        test: /pixi\.js$/,
         use: ['expose-loader?PIXI']
       },
       {
@@ -117,7 +113,7 @@ module.exports = {
         use: ['expose-loader?Phaser']
       },
       {
-        test: /p2\.js/,
+        test: /p2\.js$/,
         use: ['expose-loader?p2']
       }
 
@@ -128,10 +124,12 @@ module.exports = {
       $: "jquery",
       jQuery: "jquery"
     }),
+    /*
     new webpack.DefinePlugin({
       'CANVAS_RENDERER': JSON.stringify(true),
       'WEBGL_RENDERER': JSON.stringify(true)
     })
+    */
   ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

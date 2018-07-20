@@ -1,60 +1,74 @@
 <template>
-<div class="detail_page page_font">
+<v-container>
 <div v-if="show_cond == 0" class="loading">
   {{ $t("message.loading") }}
 </div>
 <div v-else-if="show_cond == 1" class="loading">
 {{ $t("message.no_ubi_info") }}
 </div>
-<div v-else-if="show_cond == 2" class="content">
-<div style="text-align: center">
-  {{ $t("message.ubi_info") }} 
-</div>
-<div style="text-align:center">
-  -----------------------------------------------
-</div>
-<div class='small_content'>
-  {{ $t("message.tbl_ubi_code") }} :{{ ubi_code }}
-</div>
-<div class='small_content'>
-  {{ $t("message.tbl_name") }} :{{ name }}
-</div>
-<div class='small_content'>
-  {{ $t("message.tbl_driving_license") }}:{{ driving_license }}
-</div>
-<div class='small_content'>
-  {{ $t("message.tbl_vincode") }}:{{ vincode }}
-</div>
-<div class='small_content'>
-  {{ $t("message.tbl_duration") }}:{{ start_date }}&nbsp;---&nbsp;{{ end_date }}
-</div>
-<div class='small_content'>
+<div v-else-if="show_cond == 2" class="content small_font">
+  <v-layout row wrap class='big_font'>
+    <v-spacer></v-spacer>
+    <v-flex class="text-lg-center">
+      {{ $t("message.ubi_info") }}
+    </v-flex>
+    <v-spacer></v-spacer>
+  </v-layout>
+  <v-divider></v-divider>
+  <v-layout row wrap>
+    <v-flex class='ml-5'> 
+      {{ $t("message.tbl_ubi_code") }} :{{ ubi_code }}
+    </v-flex>
+    <v-flex class='ml-5'> 
+      {{ $t("message.tbl_duration") }}:{{ start_date }}&nbsp;---&nbsp;{{ end_date }}
+    </v-flex>
+  </v-layout>
+  <v-divider></v-divider>
+  <v-layout row wrap>
+    <v-flex class='ml-5'>
+      {{ $t("message.tbl_vincode") }}:{{ vincode }}
+    </v-flex>
+  </v-layout>
+  <v-divider></v-divider>
+  <v-layout row wrap>
+    <v-flex class='ml-5'>
+    {{ $t("message.tbl_name") }} :{{ name }}
+    </v-flex>
+    <v-flex class='ml-5'>
+    {{ $t("message.tbl_driving_license") }}:{{ driving_license }}
+    </v-flex>
+  </v-layout>
+  <v-divider></v-divider>
+  <v-layout row wrap>
+    <v-flex class='ml-5'>
   {{ $t("message.tbl_hash") }}:
-</div>
-<div class='small_content'>
-        <div v-if="hash=='' || hash==undefined">
-          {{ $t("message.empty_hash") }}
-        </div>
-        <div v-else>
-          <div>
-          <a :href="ipfs_addr + '/ipfs/' + hash">{{ ipfs_addr }}/ipfs/{{ hash }}
-          </a>
-        </div>
-        <div>
-          <a :href="'https://gateway.ipfs.guide/' + hash">https://gateway.ipfs.guide/{{ hash }}
-          </a>
-        </div>
-        <div>
-          <a :href="'http://ipfs.io/ipfs/' + hash">http://ipfs.io/ipfs/{{ hash }}
-          </a>
-        </div>
-        </div>
-</div>
-</div>
-  <div style="text-align:center; margin-top:5px;">
+    </v-flex>
+  </v-layout>
+  <v-layout row wrap>
+    <v-flex class='ml-5'>
+    <v-layout row v-if="hash=='' || hash==undefined">
+      {{ $t("message.empty_hash") }}
+    </v-layout>
+    <v-container class='d-inline-block' v-else>
+      <v-layout row>
+        <a :href="ipfs_addr + '/ipfs/' + hash">{{ ipfs_addr }}/ipfs/{{ hash }}</a>
+      </v-layout>
+      <v-layout row wrap>
+        <a :href="'https://gateway.ipfs.guide/' + hash">https://gateway.ipfs.guide/{{ hash }}</a>
+      </v-layout>
+      <v-layout row wrap>
+        <a :href="'http://ipfs.io/ipfs/' + hash">http://ipfs.io/ipfs/{{ hash }}</a>
+      </v-layout>
+    </v-container>
+    </v-flex>
+  </v-layout>
+  <v-layout class="mt-5">
+    <v-spacer></v-spacer>
     <b-button class="bk_btn" @click="onBack" plain>{{ $t("message.Back") }}</b-button>
-  </div>
+    <v-spacer></v-spacer>
+  </v-layout>
 </div>
+</v-container>
 </template>
 
 <style scoped>
@@ -84,13 +98,15 @@
   padding-top: 30px;
   font-size: 30px;
   width: 100%;
-  height: 450px;
-  text-align: left;
+  color: #423b3b;
 }
 
-.small_content {
-  color: #423b3b;
-  font-size: 18px;
+.big_font {
+  font-size: 30px;
+}
+
+.small_font {
+  font-size: 14px;
 }
 
 .bk_btn {

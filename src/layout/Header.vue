@@ -28,8 +28,8 @@
           </div>
       </v-toolbar-items>
       <v-select solo style="width=50px;"
-            :items="langs" v-model="lang" @change="onChange"
-          ></v-select>
+            :items="langs" v-model="lang" @change="onChange"></v-select>
+      <v-spacer></v-spacer>
     </v-toolbar>
 
     <v-expansion-panel class="hidden-md-and-up" expand>
@@ -120,7 +120,7 @@ export default {
         { lvl:2, text: this.$t("message.menu_game"), 
           sub_items: [ 
             { text: this.$t("message.menu_game1"), url: '#/game' },
-            { text: this.$t("message.menu_game2"), url: '#/game' } 
+            { text: this.$t("message.menu_game2"), url: '#/game2' } 
           ] },
         { lvl:1, text: this.$t("message.menu_about_us"), 
           url: '#/about_us' },

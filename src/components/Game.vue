@@ -1,26 +1,24 @@
 <template>
-  <div class="container">
-    <div id='gameScreen'></div>
-  </div>
+  <v-container>
+    <div ref="gameScreen"></div>
+  </v-container>
 </template>
 
 <script>
-/* eslint-disable no-unused-vars */
 import "pixi";
 import "p2";
 import Phaser from "phaser";
-/* eslint-enable no-unused-vars */
 
 export default {
   name: "Game",
-  props: {
-    width: Number,
-    height: Number
-  },
   mounted() {
     let self = this;
+    console.log(self.$refs.gameScreen);
+    self.width = self.$refs.gameScreen.clientWidth;
+    self.height = self.width * document.body.clientHeight / document.body.clientWidth;
     if (self.game == null) {
-      self.game = new Phaser.Game(self.width, self.height, Phaser.AUTO, self.$el, {
+      console.log('self.width:', self.width, 'self.height:', self.height);
+      self.game = new Phaser.Game(self.width, self.height, Phaser.AUTO, self.$refs.gameScreen, {
         preload: function preload() {
           self.preload();
         },
@@ -29,16 +27,37 @@ export default {
         },
         update: function update() {
           self.update();
+        },
+        render: function render() {
+          self.render();
         }
       });
     }
   },
   methods: {
+    destroyed() {
+      this.game.destroy()
+    },
     preload() {
+      let base_path = 'static/car_snap_assets';
+      
       this.game.load.image("ball", "static/sprites/pangball.png");
+		  this.game.load.spritesheet('btn-pai', base_path + '/images/btn-pai.png', 296, 296)
+    },
+    demo(e) {
+        console.log('demo:', e.x, ' ', e.y);
     },
     create() {
       this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+		  this.btnPai = this.game.add.button(self.width / 2, self.height / 2, 'btn-pai', null, this.game, 0, 0, 1)
+		  this.btnPai.onInputDown.add(this.demo, this.game)
+
+      /*
+		  this.btnPai = this.game.add.sprite(self.width / 2, self.height / 2, 'btn-pai');
+		  this.btnPai.inputEnabled = true;
+      this.btnPai.events.onInputDown.add(this.demo, this.game);
+      */
 
       this.game.stage.backgroundColor = "#124184";
 
@@ -58,11 +77,19 @@ export default {
       }
     },
     update() {},
-    render() {}
+    render() {
+		var debug = this.game.debug
+		debug.inputInfo(532, 32);
+		debug.spriteInputInfo(this.btnPai, 532, 170);
+		debug.pointer(this.game.input.activePointer);
+    }
   },
   data() {
     return {
-      game: null
+      btnPai: null,
+      game: null,
+      width: 0,
+      height: 0
     };
   }
 };
