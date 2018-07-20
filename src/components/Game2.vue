@@ -1,5 +1,5 @@
 <template>
-    <div style="width:480px; height:756px;" ref="gameScreen"></div>
+    <div style="width:320px; height:504px;" ref="gameScreen"></div>
 </template>
 
 <script>
@@ -9,7 +9,6 @@ import Phaser from "phaser";
 import Car from "@/game_js/car_snap"
 
 export default {
-  name: "Game2",
   mounted() {
     let self = this;
     console.log(self.$refs.gameScreen);

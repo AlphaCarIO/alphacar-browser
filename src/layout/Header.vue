@@ -27,7 +27,7 @@
             </div>
           </div>
       </v-toolbar-items>
-      <v-select solo style="width=50px;"
+      <v-select solo class="lang_select"
             :items="langs" v-model="lang" @change="onChange"></v-select>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -67,7 +67,7 @@
               <v-btn flat :href="item.url">{{ item.text }}</v-btn>
             </div>
           </div>
-      <v-select solo style="width=50px;"
+      <v-select solo class="lang_select2"
             :items="langs" v-model="lang" @change="onChange"
           ></v-select>
       </v-expansion-panel-content>
@@ -83,17 +83,14 @@
   cursor: pointer;
 }
 
-.type_s.el-select {
-  width: 150px;
+.lang_select {
+  width: 20px;
 }
 
-.lang_s.el-select {
-  width: 110px;
+.lang_select2 {
+  width: 80px;
 }
 
-.input-with-select .el-input-group__prepend {
-  background-color: #dcdfe6;
-}
 </style>
 
 <style scoped>

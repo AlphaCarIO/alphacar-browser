@@ -37,6 +37,13 @@ const en = {
     quote_baseVolume: "Base Volume",
     quote_high24hr: "High in 24hr",
     quote_low24hr: "Low in 24hr",
+    token_info: "AlphaCar Token Infomation",
+    symbol: "Symbol",
+    name: "Name",
+    decimals: "Decimals",
+    totalSupply: "TotalSupply",
+    owner: "Owner",
+    about_us_msg: "We're AlphaCar Team!",
   },
   ...enLocale
 }

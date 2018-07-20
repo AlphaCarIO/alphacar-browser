@@ -10,7 +10,6 @@ import "p2";
 import Phaser from "phaser";
 
 export default {
-  name: "Game",
   mounted() {
     let self = this;
     console.log(self.$refs.gameScreen);

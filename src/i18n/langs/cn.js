@@ -37,6 +37,13 @@ const cn = {
     quote_baseVolume: "交易量",
     quote_high24hr: "24小时最高价",
     quote_low24hr: "24小时最低价",
+    token_info: "阿尔法车链代币信息",
+    symbol: "代币符号",
+    name: "代币名称",
+    decimals: "小数位(精度)",
+    totalSupply: "代币总量",
+    owner: "所有者",
+    about_us_msg: "我们是阿尔法车链的团队!",
   },
   ...zhLocale
 }

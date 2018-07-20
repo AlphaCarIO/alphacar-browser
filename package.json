@@ -15,6 +15,7 @@
   "dependencies": {
     "ajv": "^6.5.2",
     "axios": "^0.18.0",
+    "bignumber.js": "^7.2.1",
     "bootstrap": "^4.1.1",
     "bootstrap-table": "^1.12.1",
     "bootstrap-vue": "^2.0.0-rc.11",
