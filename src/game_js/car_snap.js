@@ -2,7 +2,6 @@ let Car = Car || {}
 Car.Boot = function(game) {}
 Car.Boot.prototype = {
 	preload: function() {
-		//this.load.image('preloaderBar', 'images/preloader-bar.jpg')
 	},
 	create: function() {
 		// 触摸点数
@@ -188,14 +187,11 @@ Car.Game.prototype = {
 		var mark = this.add.sprite(24, -43, 'mark')
 		var kuang = this.add.sprite(Car.GAME_W / 2 - 241, 211, 'kuang')
 
-		//console.log(this.game);
 		//this.btnPai = this.add.button(Car.GAME_W / 2 - 148, Car.GAME_H, 'btn-pai', null, this, 0, 0, 1)
 		this.btnPai = this.add.sprite(Car.GAME_W / 2 - 148, Car.GAME_H, 'btn-pai')
 		this.btnPai.inputEnabled = true;
-		/*
 		this.btnPai.input.useHandCursor = true
 		this.btnPai.input.pixelPerfectOver = true
-		*/
 
 		kuang.alpha = 0
 
@@ -211,8 +207,8 @@ Car.Game.prototype = {
 			y: 710
 		}, 500, Phaser.Easing.Linear.None, true, false)
 
-		this.btnPai.events.onInputDown.add(this.pai, this.btnPai)
-		//this.btnPai.onInputDown.add(this.pai, this.btnPai)
+		this.btnPai.events.onInputDown.add(this.pai, this)
+		//this.btnPai.onInputDown.add(this.pai, this)
 
 		this.photoMusic = this.add.audio('photo-audio')
 		this.paiMusic = this.add.audio('pai-audio')
@@ -365,8 +361,8 @@ Car.Game.prototype = {
 		}, 1000, Phaser.Easing.Back.Out, true, false);
 	},
 	pai: function(e) {
-		console.log('pai (x, y) =(', e.x, ',', e.y, ")")
-		console.log(this._car.y)
+		//console.log('pai (x, y) =(', e.x, ',', e.y, ")")
+		//console.log(this._car.y)
 		this.paiMusic.play()
 		if (this._car.y > 200 && this._car.y < 410) {
 			document.getElementById('shan').style.display = "block"
@@ -411,11 +407,13 @@ Car.Game.prototype = {
 			}, 3000, Phaser.Easing.Linear.None, true, false)
 		}
 	},
-	render:function(){
+	render:function() {
+		/*
 		var debug = this.game.debug
 		debug.inputInfo(32, 32);
 		debug.spriteInputInfo(this.btnPai, 32, 170);
 		debug.pointer(this.game.input.activePointer);
+		*/
 	}
 }
 

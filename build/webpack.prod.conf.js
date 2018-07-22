@@ -68,6 +68,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         : config.build.index,
       template: 'index.html',
       inject: true,
+      chunks: ['vendor', 'app'],
+      chunksSortMode: 'manual',
       minify: {
         removeComments: true,
         collapseWhitespace: true,

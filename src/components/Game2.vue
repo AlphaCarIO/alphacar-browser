@@ -1,5 +1,7 @@
 <template>
-    <div style="width:320px; height:504px;" ref="gameScreen"></div>
+    <div style="width:320px; height:504px;" ref="gameScreen">
+      <div id="shan"></div>
+    </div>
 </template>
 
 <script>

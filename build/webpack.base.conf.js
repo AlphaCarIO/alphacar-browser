@@ -5,13 +5,6 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-/*
-var phaserModule = path.join(__dirname, '../node_modules/phaser-ce/')
-var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
-var pixi = path.join(phaserModule, 'build/custom/pixi.js')
-var p2 = path.join(phaserModule, 'build/custom/p2.js')
-*/
-
 let phaserModule = path.join(__dirname, '../node_modules/phaser/')
 let phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
 let pixi = path.join(phaserModule, 'build/custom/pixi.js')
