@@ -115,7 +115,7 @@ export default {
   methods: {
     fetchData() {
       let self = this;
-      self.$http.get("/token/info").then(
+      self.$http.get("/api/token/info").then(
         response => {
           if (response.status == 200) {
             if (response.data.error_code == 0) {

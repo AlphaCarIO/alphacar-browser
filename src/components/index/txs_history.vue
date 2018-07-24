@@ -113,7 +113,7 @@
         dt = dt.add(1, 'days');
       }
 
-      self.$http.post('/ubi_info/tx_count_lst', dates).then(response => {
+      self.$http.post('/api/ubi_info/tx_count_lst', dates).then(response => {
           if (response.status == 200) {
             self.datas = response.data.data.txs_count;
             this.getUserChartInit();

@@ -203,7 +203,7 @@ export default {
         page: self.page - 1,
         page_size: self.page_size
       };
-      self.$http.get("/ubi_info/list?" + qs.stringify(params)).then(
+      self.$http.get("/api/ubi_info/list?" + qs.stringify(params)).then(
         response => {
           //console.log('response:', response);
           if (response.status == 200) {

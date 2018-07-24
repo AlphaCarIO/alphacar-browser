@@ -119,7 +119,7 @@ export default {
       let self = this;
 
       //https://data.gateio.io/api2/1/ticker/eth_usdt
-      self.$http.get("/gateio/ticker/eth_usdt").then(
+      self.$http.get("/api/gateio/ticker/eth_usdt").then(
         response => {
           if (response.status == 200) {
             self.eth_price = response.data.data.last;

@@ -68,8 +68,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         : config.build.index,
       template: 'index.html',
       inject: true,
-      chunks: ['vendor', 'app'],
-      chunksSortMode: 'manual',
+      chunks: ['manifest', 'vendor', 'app'],
+      // chunksSortMode: 'manual',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -102,7 +102,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      minChunks: Infinity
+      chunks: ['vendor'],
+      //minChunks: Infinity
     }),
     // This instance extracts shared chunks from code splitted chunks and bundles them
     // in a separate chunk, similar to the vendor chunk

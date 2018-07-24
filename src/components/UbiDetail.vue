@@ -145,8 +145,7 @@ export default {
       let self = this;
       let ubi_code = self.$route.params.ubi_code;
 
-      //https://data.gateio.io/api2/1/ticker/eth_usdt
-      self.$http.get("/ubi_info/index/" + ubi_code).then(
+      self.$http.get("/api/ubi_info/index/" + ubi_code).then(
         response => {
           if (response.status == 200) {
             if (response.data.error_code == 0) {

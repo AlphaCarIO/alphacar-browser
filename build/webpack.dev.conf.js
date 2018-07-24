@@ -56,7 +56,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true,
-      chunks: ['vendor', 'app'],
+      chunks: ['manifest', 'vendor', 'app'],
       chunksSortMode: 'manual'
     }),
     // copy custom static assets

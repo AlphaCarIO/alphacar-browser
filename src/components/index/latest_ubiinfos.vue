@@ -110,7 +110,7 @@ export default {
         page_size: 3
       };
 
-      self.$http.get("/ubi_info/list?" + qs.stringify(params)).then(
+      self.$http.get("/api/ubi_info/list?" + qs.stringify(params)).then(
         response => {
           if (response.status == 200) {
             self.tableData = response.data.data.lst;
