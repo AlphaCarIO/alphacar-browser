@@ -27,12 +27,28 @@
             </v-layout>
           </v-layout>
       </v-toolbar-items>
-      <v-select solo class="lang_select"
-            :items="langs" v-model="lang" @change="onChange"></v-select>
-      <v-spacer></v-spacer>
+      <v-spacer/>
+      <v-select offset-y dense solo class="lang_select" :items="langs" v-model="lang" @change="onChange">
+        <template slot="selection" slot-scope="data">
+          <v-avatar :size="avatar_size">
+            <img :src="data.item.avatar" alt="avatar">
+          </v-avatar>
+        </template>
+        <template slot="item" slot-scope="data">
+          <v-list-tile-avatar :size="avatar_size">
+            <img :src="data.item.avatar" alt="avatar">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              {{ data.item.text }}
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </template>
+      </v-select>
+      <v-spacer/>
     </v-toolbar>
 
-    <v-expansion-panel  v-if="!isLarge" dark expand>
+    <v-expansion-panel v-if="!isLarge" dark expand>
       <v-expansion-panel-content>
           <div slot="header">
             <img src="@/assets/logo.png" @click="onHome" width='100rem' alt="" />
@@ -67,9 +83,23 @@
               <v-btn flat :to="item.url">{{ item.text }}</v-btn>
             </v-layout>
           </v-layout>
-      <v-select solo class="lang_select2"
-            :items="langs" v-model="lang" @change="onChange"
-          ></v-select>
+      <v-select offset-y dense solo class="lang_select" :items="langs" v-model="lang" @change="onChange">
+        <template slot="selection" slot-scope="data">
+          <v-avatar :size="avatar_size">
+            <img :src="data.item.avatar" alt="avatar">
+          </v-avatar>
+        </template>
+        <template slot="item" slot-scope="data">
+          <v-list-tile-avatar :size="avatar_size">
+            <img :src="data.item.avatar" alt="avatar">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              {{ data.item.text }}
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </template>
+      </v-select>
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -84,11 +114,7 @@
 }
 
 .lang_select {
-  width: 20px;
-}
-
-.lang_select2 {
-  width: 80px;
+  width: 30px!important;
 }
 
 </style>
@@ -156,14 +182,17 @@ export default {
   },
   data() {
     return {
+      avatar_size: "20px",
       langs: [
         {
           value: "cn",
-          text: "CN"
+          text: "简体中文",
+          avatar: "static/img/CN2x.png",
         },
         {
           value: "en",
-          text: "EN"
+          text: "EN",
+          avatar: "static/img/US2x.png",
         },
       ],
       search_txt: "",
