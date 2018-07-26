@@ -51,7 +51,7 @@
     <v-expansion-panel v-if="!isLarge" dark expand>
       <v-expansion-panel-content>
           <div slot="header">
-            <img src="@/assets/logo.png" @click="onHome" width='100rem' alt="" />
+            <img src="@/assets/logo.png" @click="onHome" width='150rem' alt="" />
           </div>
           <v-layout row child-flex justify-center align-center wrap>
             <v-spacer/>
@@ -114,17 +114,12 @@
 }
 
 .lang_select {
-  width: 30px!important;
+  width: 70px!important;
 }
 
 </style>
 
 <style scoped>
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
 </style>
 
 <script>

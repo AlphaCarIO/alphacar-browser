@@ -1,22 +1,20 @@
 <template>
-  <v-layout>
-      <v-data-table hide-actions
+  <v-data-table hide-actions
         :headers="fields"
         :items="tableData"
         :loading="loading"
         class="elevation-1">
-        <template slot="items" slot-scope="props">
-          <tr @click="viewDetail(props.item.ubi_code)">
-          <td>{{ props.item.ubi_code }}</td>
-          <td class="text-xs-right">{{ props.item.user.name }}</td>
-          <td class="text-xs-right">{{ props.item.user.driving_license }}</td>
-          <td class="text-xs-right">{{ props.item.car_info.vin_code }}</td>
-          <td class="text-xs-right">{{ props.item.start_date }}-{{ props.item.end_date }}</td>
-          <td class="text-xs-right">{{ props.item.hash }}</td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-layout>
+    <template slot="items" slot-scope="props">
+      <tr @click="viewDetail(props.item.ubi_code)">
+        <td>{{ props.item.ubi_code }}</td>
+        <td class="text-xs-right">{{ props.item.user.name }}</td>
+        <td class="text-xs-right">{{ props.item.user.driving_license }}</td>
+        <td class="text-xs-right">{{ props.item.car_info.vin_code }}</td>
+        <td class="text-xs-right">{{ props.item.start_date }}-{{ props.item.end_date }}</td>
+        <td class="text-xs-right">{{ props.item.hash }}</td>
+      </tr>
+    </template>
+  </v-data-table>
 </template>
 
 <style scoped>

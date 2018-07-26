@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<div>
 <div v-if="show_cond == 0" class="display-3 text-lg-center">
   {{ $t("message.loading") }}
 </div>
@@ -52,7 +52,7 @@
     <v-btn dark @click="onBack">{{ $t("message.Back") }}</v-btn>
     <v-spacer></v-spacer>
   </v-layout>
-</v-container>
+</div>
 </template>
 
 <style scoped>

@@ -1,17 +1,19 @@
 <template>
-<v-container>
-  <v-layout row wrap>
-      <v-flex>
+<div class="container">
+  <div class="row">
+      <div class="col-sm">
         <token_price></token_price>
-      </v-flex>
-      <v-flex>
+      </div>
+      <div class="col-sm">
         <txs_history></txs_history>
-      </v-flex>
-  </v-layout>
-  <v-layout row wrap>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm">
         <latest_ubiinfos></latest_ubiinfos>
-  </v-layout>
-</v-container>
+      </div>
+  </div>
+</div>
 </template>
 
 <style scoped>
