@@ -6,6 +6,7 @@
   </v-parallax-->
   <Main/>
   <Footer/>
+
 </v-app>
 </template>
 
@@ -24,8 +25,3 @@ export default {
   name: "app"
 };
 </script>
-
-<style lang="scss">
-//@import "../static/styles/custom-bootstrap.scss";
-//@import "../node_modules/bootstrap/scss/bootstrap.scss";
-</style>

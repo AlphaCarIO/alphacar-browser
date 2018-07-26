@@ -1,9 +1,9 @@
 <template>
-<div style="align:center; ">
+<v-container>
 <div v-if="show_cond == 0" class="loading">
   {{ $t("message.loading") }}
 </div>
-<div v-else-if="show_cond == 1">
+<v-layout row wrap v-else-if="show_cond == 1">
 
   <b-table striped hover responsive :items="tableData" :fields="fields" @row-clicked="viewDetail">
     <template slot="index" slot-scope="data">
@@ -32,51 +32,43 @@
         </div>
     </template>
   </b-table>
-  <div class="row">
-  <div class="col-3">
-  </div>
-  <div class="col">
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <b-select @change="handleSizeChange" v-model="page_size" :options="page_sizes" class="col-2" />
-      <div class="col-6">
-        <b-pagination align="center" @change='handleCurrentChange' size="md" 
+  </v-layout>
+
+  <v-layout row wrap>
+    <v-spacer></v-spacer>
+    <v-flex class="text-lg-right">
+      <b-select style="width:70px" @change="handleSizeChange" v-model="page_size" :options="page_sizes" />
+    </v-flex>
+    <v-flex class="text-lg-left">
+      <b-pagination @change='handleCurrentChange' size="md" 
         :total-rows="total_count" v-model="page" :per-page="page_size">
-        </b-pagination>
-      </div>
-      <div class="col-2">
-      </div>
-    </div>
-  </div>
-  <div class="col-3">
-  </div>
-  </div>
-  </div>
-  <div style="text-align:center; margin-top:5px;">
+      </b-pagination>
+    </v-flex>
+    <v-spacer></v-spacer>
+  </v-layout>
+
+  <v-layout row wrap style="text-align:center; margin-top:5px;">
     <b-button class="bk_btn" @click="onBack" plain>{{ $t("message.Back") }}</b-button>
-  </div>
-</div>
+  </v-layout>
+</v-container>
 </template>
 
 <style scoped>
-.content {
-  font-size: 30px;
-  color: #ffffff;
+
+.loading {
+  padding-top: 0px;
+  font-size: 50px;
   width: 100%;
-  height: 100%;
+  height: 520px;
+  line-height: 520px;
   text-align: center;
-  opacity: 0.7 !important;
-  filter: alpha(opacity=70) !important;
 }
-.pagination_div {
-  text-align: center;
-  margin-top: 2px;
-}
+
 .bk_btn {
   margin: auto;
 }
 </style>
+
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";

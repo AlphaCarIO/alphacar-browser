@@ -25,6 +25,9 @@
     <v-flex class='ml-5'>
     {{ $t("message.name") }}:&nbsp;{{ name }}
     </v-flex>
+  </v-layout>
+  <v-divider></v-divider>
+  <v-layout row wrap>
     <v-flex class='ml-5'>
     {{ $t("message.decimals") }}:&nbsp;{{ decimals }}
     </v-flex>
@@ -46,18 +49,6 @@
 </template>
 
 <style scoped>
-.detail_page {
-  background: #d3dce6;
-  border-radius: 30px;
-  height: 520px;
-  text-align: center;
-  opacity: 0.7 !important;
-  filter: alpha(opacity=70) !important;
-}
-
-.page_font {
-  color: #181616;
-}
 
 .loading {
   padding-top: 0px;
@@ -70,23 +61,21 @@
 
 .content {
   padding-top: 30px;
-  font-size: 30px;
+  font-size: 24px;
   width: 100%;
   color: #423b3b;
 }
 
 .big_font {
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .small_font {
   font-size: 14px;
 }
 
-.bk_btn {
-  margin: auto;
-}
 </style>
+
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";

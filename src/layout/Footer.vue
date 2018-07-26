@@ -1,11 +1,7 @@
 <template>
-<v-footer justify-center row wrap>
-<v-flex   blue lighten-1
-          py-3
-          text-xs-center
-          white--text
-          xs12>
-{{ $t("message.copyright") }}
+<v-footer dark justify-center row wrap>
+<v-flex py-3 text-xs-center white--text xs12>
+  {{ $t("message.copyright") }}
 </v-flex>
 </v-footer>
 </template>

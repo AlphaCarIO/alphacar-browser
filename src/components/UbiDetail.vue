@@ -72,18 +72,6 @@
 </template>
 
 <style scoped>
-.detail_page {
-  background: #d3dce6;
-  border-radius: 30px;
-  height: 520px;
-  text-align: center;
-  opacity: 0.7 !important;
-  filter: alpha(opacity=70) !important;
-}
-
-.page_font {
-  color: #181616;
-}
 
 .loading {
   padding-top: 0px;
@@ -113,6 +101,7 @@
   margin: auto;
 }
 </style>
+
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";

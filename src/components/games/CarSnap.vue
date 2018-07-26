@@ -1,7 +1,13 @@
 <template>
-    <div style="width:320px; height:504px;" ref="gameScreen">
+<v-container>
+  <v-layout>
+    <v-spacer/>
+    <v-flex class="text-lg-center" style="width:320px; height:504px;" ref="gameScreen">
       <div id="shan"></div>
-    </div>
+    </v-flex>
+    <v-spacer/>
+  </v-layout>
+</v-container>
 </template>
 
 <script>

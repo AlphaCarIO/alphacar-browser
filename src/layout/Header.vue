@@ -1,41 +1,41 @@
 <template>
   <div>
-    <v-toolbar class="hidden-sm-and-down" color="blue lighten-1" app>
-      <img src="@/assets/logo.png" class='logo' @click="onHome" width='200rem' alt="">
+    <v-toolbar v-if="isLarge" dark app>
+      <img src="@/assets/logo.png" class='logo' @click="onHome" width='150rem' alt="">
       <v-spacer></v-spacer>
       <v-text-field @keypress.native="onKeyPress" v-model="search_txt" hide-details prepend-inner-icon="search"
         single-line></v-text-field>
       <v-btn @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
       <v-toolbar-items>
-          <div v-for="(item,i) in items" :key="i" class="blue lighten-1">
-            <div style="height:100%" v-if="item.lvl == 2">
+          <v-layout baseline v-for="(item,i) in items" :key="i">
+            <v-layout style="height:100%" v-if="item.lvl == 2">
               <v-menu open-on-hover bottom offset-y>
-              <v-btn flat slot="activator">
-                {{ item.text }}
-              </v-btn>
-              <v-list>
-                <v-list-tile v-for="(sub_item, j) in item.sub_items" :key="j">
-                  <v-list-tile-title>
-                    <a :href="sub_item.url">{{ sub_item.text }}</a>
-                  </v-list-tile-title>
-                </v-list-tile>
-              </v-list>
+                  <v-btn flat slot="activator">
+                    {{ item.text }}
+                  </v-btn>
+                <v-list>
+                  <v-list-tile v-for="(sub_item, j) in item.sub_items" :key="j">
+                    <v-list-tile-title>
+                      <v-btn bottom :to="sub_item.url">{{ sub_item.text }}</v-btn>
+                    </v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
               </v-menu>
-            </div>
-            <div style="height:100%" v-else>
-              <v-btn flat :href="item.url">{{ item.text }}</v-btn>
-            </div>
-          </div>
+            </v-layout>
+            <v-layout v-else>
+              <v-btn flat :to="item.url">{{ item.text }}</v-btn>
+            </v-layout>
+          </v-layout>
       </v-toolbar-items>
       <v-select solo class="lang_select"
             :items="langs" v-model="lang" @change="onChange"></v-select>
       <v-spacer></v-spacer>
     </v-toolbar>
 
-    <v-expansion-panel class="hidden-md-and-up" expand>
+    <v-expansion-panel  v-if="!isLarge" dark expand>
       <v-expansion-panel-content>
           <div slot="header">
-            <img src="@/assets/logo.png" @click="onHome" width='150rem' alt="" />
+            <img src="@/assets/logo.png" @click="onHome" width='100rem' alt="" />
           </div>
           <v-layout row child-flex justify-center align-center wrap>
             <v-spacer/>
@@ -48,25 +48,25 @@
             </v-flex>
             <v-spacer/>
           </v-layout>
-          <div v-for="(item,i) in items" :key="i" class="blue lighten-1">
-            <div v-if="item.lvl == 2">
+          <v-layout baseline v-for="(item,i) in items" :key="i">
+            <v-layout style="height:100%" v-if="item.lvl == 2">
               <v-menu open-on-hover bottom offset-y>
-              <v-btn slot="activator">
-                {{ item.text }}
-              </v-btn>
-              <v-list>
-                <v-list-tile v-for="(sub_item, j) in item.sub_items" :key="j">
-                  <v-list-tile-title>
-                    <a :href="sub_item.url">{{ sub_item.text }}</a>
-                  </v-list-tile-title>
-                </v-list-tile>
-              </v-list>
+                <v-btn flat slot="activator">
+                  {{ item.text }}
+                </v-btn>
+                <v-list>
+                  <v-list-tile v-for="(sub_item, j) in item.sub_items" :key="j">
+                    <v-list-tile-title>
+                      <v-btn bottom :to="sub_item.url">{{ sub_item.text }}</v-btn>
+                    </v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
               </v-menu>
-            </div>
-            <div v-else>
-              <v-btn flat :href="item.url">{{ item.text }}</v-btn>
-            </div>
-          </div>
+            </v-layout>
+            <v-layout v-else>
+              <v-btn flat :to="item.url">{{ item.text }}</v-btn>
+            </v-layout>
+          </v-layout>
       <v-select solo class="lang_select2"
             :items="langs" v-model="lang" @change="onChange"
           ></v-select>
@@ -108,32 +108,24 @@ import * as cc from "@/config/constants"
 export default {
   name: "Header",
   computed: {
+      isLarge: function() {
+        let name = this.$vuetify.breakpoint.name;
+        return name == 'md' || name == 'lg' || name == 'xl';
+      },
       items: function() {
         return [
-        { lvl:1, text: this.$t("message.menu_home"), url: '#/' },
-        { lvl:1, text: this.$t("message.menu_token"), url: '#/token' },
+        { lvl:1, text: this.$t("message.menu_home"), url: '/' },
+        { lvl:1, text: this.$t("message.menu_token"), url: '/token' },
         { lvl:1, text: this.$t("message.menu_transaction"), 
-          url: '#/search?search_type=0&search_txt=&page=1&page_size=5' },
+          url: '/search?search_type=0&search_txt=&page=1&page_size=5' },
         { lvl:2, text: this.$t("message.menu_game"), 
           sub_items: [ 
-            { text: this.$t("message.menu_game1"), url: '#/game' },
-            { text: this.$t("message.menu_game2"), url: '#/game2' } 
+            { text: this.$t("message.menu_game_car_snap"), url: '/car_snap' },
           ] },
         { lvl:1, text: this.$t("message.menu_about_us"), 
-          url: '#/about_us' },
+          url: '/about_us' },
       ]
       },
-      game_list: function() {
-        return [
-        { 
-          title: this.$t("message.menu_game1"),
-          url: "#/game"
-        }, 
-        { 
-          title: this.$t("message.menu_game2"),
-          url: "#/game"
-        }
-      ]},
     search_types: function() {
       return [
         {

@@ -6,8 +6,7 @@ import SearchResult from '@/components/SearchResult.vue'
 import UBIDetail from '@/components/UbiDetail.vue'
 import TokenInfo from '@/components/TokenInfo.vue'
 import AboutUs from '@/components/AboutUs.vue'
-import Game from '@/components/Game.vue'
-import Game2 from '@/components/Game2.vue'
+import CarSnap from '@/components/games/CarSnap.vue'
 
 Vue.use(Router)
 
@@ -36,12 +35,9 @@ export default new Router({
           component: AboutUs
         },
         {
-          path: '/game',
-          component: Game
+          path: '/car_snap',
+          component: CarSnap
         },
-        {
-          path: '/game2',
-          component: Game2
-        }
+        {path: '*', redirect: '/'}
   ]
 })
