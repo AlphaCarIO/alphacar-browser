@@ -64,7 +64,7 @@
   </v-layout>
   <v-layout class="mt-5">
     <v-spacer></v-spacer>
-    <b-button class="bk_btn" @click="onBack" plain>{{ $t("message.Back") }}</b-button>
+    <v-btn dark @click="onBack">{{ $t("message.Back") }}</v-btn>
     <v-spacer></v-spacer>
   </v-layout>
 </div>
@@ -72,34 +72,6 @@
 </template>
 
 <style scoped>
-
-.loading {
-  padding-top: 0px;
-  font-size: 50px;
-  width: 100%;
-  height: 520px;
-  line-height: 520px;
-  text-align: center;
-}
-
-.content {
-  padding-top: 30px;
-  font-size: 30px;
-  width: 100%;
-  color: #423b3b;
-}
-
-.big_font {
-  font-size: 30px;
-}
-
-.small_font {
-  font-size: 14px;
-}
-
-.bk_btn {
-  margin: auto;
-}
 </style>
 
 <script>

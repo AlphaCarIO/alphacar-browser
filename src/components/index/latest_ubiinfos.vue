@@ -1,6 +1,5 @@
 <template>
-<div style="align:center; ">
-  <div>
+  <v-layout>
       <v-data-table hide-actions
         :headers="fields"
         :items="tableData"
@@ -17,12 +16,8 @@
           </tr>
         </template>
       </v-data-table>
-    </div>
-</div>
+    </v-layout>
 </template>
-
-<style>
-</style>
 
 <style scoped>
 .content {

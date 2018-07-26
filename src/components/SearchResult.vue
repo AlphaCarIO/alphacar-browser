@@ -1,9 +1,9 @@
 <template>
 <v-container>
-<div v-if="show_cond == 0" class="loading">
+<div v-if="show_cond == 0" class="display-3 text-lg-center">
   {{ $t("message.loading") }}
 </div>
-<v-layout row wrap v-else-if="show_cond == 1">
+<v-layout row wrap v-else-if="show_cond == 1" class="body-1">
 
   <b-table striped hover responsive :items="tableData" :fields="fields" @row-clicked="viewDetail">
     <template slot="index" slot-scope="data">
@@ -47,26 +47,15 @@
     <v-spacer></v-spacer>
   </v-layout>
 
-  <v-layout row wrap style="text-align:center; margin-top:5px;">
-    <b-button class="bk_btn" @click="onBack" plain>{{ $t("message.Back") }}</b-button>
+  <v-layout row wrap>
+    <v-spacer></v-spacer>
+    <v-btn dark @click="onBack">{{ $t("message.Back") }}</v-btn>
+    <v-spacer></v-spacer>
   </v-layout>
 </v-container>
 </template>
 
 <style scoped>
-
-.loading {
-  padding-top: 0px;
-  font-size: 50px;
-  width: 100%;
-  height: 520px;
-  line-height: 520px;
-  text-align: center;
-}
-
-.bk_btn {
-  margin: auto;
-}
 </style>
 
 <script>

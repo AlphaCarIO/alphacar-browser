@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-text-field @keypress.native="onKeyPress" v-model="search_txt" hide-details prepend-inner-icon="search"
         single-line></v-text-field>
-      <v-btn @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
+      <v-btn light @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
       <v-toolbar-items>
           <v-layout baseline v-for="(item,i) in items" :key="i">
             <v-layout style="height:100%" v-if="item.lvl == 2">
@@ -44,7 +44,7 @@
               single-line></v-text-field>
             </v-flex>
             <v-flex xs3>
-              <v-btn @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
+              <v-btn light @click="onSearch">{{ $t('message.search_btn') }}</v-btn>
             </v-flex>
             <v-spacer/>
           </v-layout>

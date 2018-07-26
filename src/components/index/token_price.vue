@@ -1,5 +1,5 @@
 <template>
-<div v-if="loading" class="loading">{{ $t("message.loading") }}</div>
+<div v-if="loading" class="display-3 text-lg-center">{{ $t("message.loading") }}</div>
 <div v-else v-bind:class="['content', price_color]">
 ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
 <div class='small_content'>
@@ -15,14 +15,6 @@ ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
 </template>
 
 <style scoped>
-.loading {
-  padding-top: 0px;
-  font-size: 50px;
-  width: 100%;
-  height: 250px;
-  line-height: 250px;
-  text-align: center;
-}
 
 .content {
   padding-top: 30px;
@@ -77,6 +69,7 @@ export default {
           color = "redColor";
         }
       }
+      
       return color;
     },
     tbl_ubi_code: function() {

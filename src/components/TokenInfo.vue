@@ -1,13 +1,13 @@
 <template>
 <v-container>
-<div v-if="show_cond == 0" class="loading">
+<div v-if="show_cond == 0" class="display-3 text-lg-center">
   {{ $t("message.loading") }}
 </div>
-<div v-else-if="show_cond == 1" class="loading">
+<div v-else-if="show_cond == 1" class="display-3 text-lg-center">
 {{ $t("message.no_ubi_info") }}
 </div>
-<div v-else-if="show_cond == 2" class="content small_font">
-  <v-layout row wrap class='big_font'>
+<div v-else-if="show_cond == 2" class="body-1">
+  <v-layout row wrap class='headline'>
     <v-spacer></v-spacer>
     <v-flex class="text-lg-center">
       {{ $t("message.token_info") }}
@@ -49,31 +49,6 @@
 </template>
 
 <style scoped>
-
-.loading {
-  padding-top: 0px;
-  font-size: 50px;
-  width: 100%;
-  height: 520px;
-  line-height: 520px;
-  text-align: center;
-}
-
-.content {
-  padding-top: 30px;
-  font-size: 24px;
-  width: 100%;
-  color: #423b3b;
-}
-
-.big_font {
-  font-size: 24px;
-}
-
-.small_font {
-  font-size: 14px;
-}
-
 </style>
 
 <script>

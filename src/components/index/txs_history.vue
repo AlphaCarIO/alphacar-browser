@@ -3,12 +3,25 @@
     <div id="userChart" style="height: 250px" >图表加载失败</div>
   </div>
 </template>
+
+<style>
+
+.chart {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.chart_left {
+  border-right:#F2F2F2 10px solid;
+}
+
+</style>
+
 <script>
   import bus from "@/utils/event";
   import * as cc from "@/config/constants"
   import moment from 'moment'
   import echarts from 'echarts'
-  import qs from "qs"
 
   export default {
     data() {
@@ -131,12 +144,3 @@
     }
   };
 </script>
-<style>
-  .chart{
-    background-color: white;
-    border-radius: 4px;
-  }
-  .chart_left{
-    border-right:#F2F2F2 10px solid;
-  }
-</style>

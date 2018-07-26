@@ -7,6 +7,7 @@ import UBIDetail from '@/components/UbiDetail.vue'
 import TokenInfo from '@/components/TokenInfo.vue'
 import AboutUs from '@/components/AboutUs.vue'
 import CarSnap from '@/components/games/CarSnap.vue'
+import SphereTracer from '@/components/games/SphereTracer.vue'
 
 Vue.use(Router)
 
@@ -37,6 +38,10 @@ export default new Router({
         {
           path: '/car_snap',
           component: CarSnap
+        },
+        {
+          path: '/demo',
+          component: SphereTracer
         },
         {path: '*', redirect: '/'}
   ]

@@ -1,6 +1,6 @@
 <template>
 <v-container>
-  <v-layout row wrap class='big_font'>
+  <v-layout row wrap class='headline'>
     <v-spacer></v-spacer>
     <v-flex class="text-lg-center">
       {{ $t("message.menu_about_us") }}
@@ -9,7 +9,7 @@
   </v-layout>
   <v-divider></v-divider>
   <v-layout row wrap>
-    <v-flex class='ml-5'> 
+    <v-flex class='ml-5 body-1'> 
       {{ $t('message.about_us_msg') }}
     </v-flex>
   </v-layout>
@@ -17,12 +17,8 @@
 </template>
 
 <style scoped>
-
-.big_font {
-  font-size: 30px;
-}
-
 </style>
+
 <script>
 import bus from "@/utils/event";
 import * as cc from "@/config/constants";
