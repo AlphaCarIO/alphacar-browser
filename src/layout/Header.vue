@@ -51,11 +51,33 @@
     <v-expansion-panel v-if="!isLarge" dark expand>
       <v-expansion-panel-content>
           <div slot="header">
-            <img src="@/assets/logo.png" @click="onHome" width='150rem' alt="" />
+            <img src="@/assets/logo.png" @click="onHome" width='150rem' alt=""/>
           </div>
-          <v-layout row child-flex justify-center align-center wrap>
+          <v-layout row align-baseline align-content-end wrap>
             <v-spacer/>
-            <v-flex xs6>
+            <v-flex xs3>
+              <v-select offset-y solo class="lang_select" :items="langs" v-model="lang" @change="onChange">
+                <template slot="selection" slot-scope="data">
+                  <v-avatar :size="avatar_size">
+                    <img :src="data.item.avatar" alt="avatar">
+                  </v-avatar>
+                </template>
+                <template slot="item" slot-scope="data">
+                  <v-list-tile-avatar :size="avatar_size">
+                    <img :src="data.item.avatar" alt="avatar">
+                  </v-list-tile-avatar>
+                  <v-list-tile-content>
+                    <v-list-tile-title>
+                      {{ data.item.text }}
+                    </v-list-tile-title>
+                  </v-list-tile-content>
+                </template>
+              </v-select>
+            </v-flex>
+          </v-layout>
+          <v-layout row child-flex align-center wrap>
+            <v-spacer/>
+            <v-flex xs7>
               <v-text-field v-model="search_txt" hide-details prepend-inner-icon="search"
               single-line></v-text-field>
             </v-flex>
@@ -83,23 +105,6 @@
               <v-btn flat :to="item.url">{{ item.text }}</v-btn>
             </v-layout>
           </v-layout>
-      <v-select offset-y dense solo class="lang_select" :items="langs" v-model="lang" @change="onChange">
-        <template slot="selection" slot-scope="data">
-          <v-avatar :size="avatar_size">
-            <img :src="data.item.avatar" alt="avatar">
-          </v-avatar>
-        </template>
-        <template slot="item" slot-scope="data">
-          <v-list-tile-avatar :size="avatar_size">
-            <img :src="data.item.avatar" alt="avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>
-              {{ data.item.text }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </template>
-      </v-select>
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -114,7 +119,7 @@
 }
 
 .lang_select {
-  width: 70px!important;
+  width: 80px!important;
 }
 
 </style>
