@@ -43,6 +43,7 @@ const en = {
     totalSupply: "TotalSupply",
     owner: "Owner",
     about_us_msg: "We're AlphaCar Team!",
+    tx_list: "Transactions",
   },
   ...enLocale
 }

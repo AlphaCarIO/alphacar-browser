@@ -11,26 +11,6 @@
 </template>
 
 <style>
-
-.content {
-  padding-top: 30px;
-  font-size: 24px;
-  width: 100%;
-  color: #423b3b;
-}
-
-.big_font {
-  font-size: 24px;
-}
-
-.small_font {
-  font-size: 14px;
-}
-
-.bk_btn {
-  margin: auto;
-}
-
 </style>
 
 <script>

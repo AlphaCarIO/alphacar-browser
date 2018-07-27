@@ -1,18 +1,16 @@
 <template>
 <v-container>
-<div v-if="show_cond == 0" class="loading">
+<div v-if="show_cond == 0" class="display-1 text-lg-center">
   {{ $t("message.loading") }}
 </div>
-<div v-else-if="show_cond == 1" class="loading">
+<div v-else-if="show_cond == 1" class="display-1 text-lg-center">
 {{ $t("message.no_ubi_info") }}
 </div>
-<div v-else-if="show_cond == 2" class="content small_font">
-  <v-layout row wrap class='big_font'>
-    <v-spacer></v-spacer>
-    <v-flex class="text-lg-center">
+<div v-else-if="show_cond == 2" class="body-1">
+  <v-layout row wrap class='headline text-lg-center'>
+    <v-flex>
       {{ $t("message.ubi_info") }}
     </v-flex>
-    <v-spacer></v-spacer>
   </v-layout>
   <v-divider></v-divider>
   <v-layout row wrap>

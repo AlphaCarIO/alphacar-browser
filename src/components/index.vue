@@ -8,7 +8,7 @@
         <txs_history></txs_history>
       </div>
   </div>
-  <div class="row">
+  <div class="row mt-4">
       <div class="col-sm">
         <latest_ubiinfos></latest_ubiinfos>
       </div>

@@ -43,6 +43,7 @@ const cn = {
     totalSupply: "代币总量",
     owner: "所有者",
     about_us_msg: "我们是阿尔法车链的团队!",
+    tx_list: "交易列表",
   },
   ...zhLocale
 }

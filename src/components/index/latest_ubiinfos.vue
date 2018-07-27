@@ -5,13 +5,13 @@
         :loading="loading"
         class="elevation-1">
     <template slot="items" slot-scope="props">
-      <tr @click="viewDetail(props.item.ubi_code)">
+      <tr class="text-xs-left" @click="viewDetail(props.item.ubi_code)">
         <td>{{ props.item.ubi_code }}</td>
-        <td class="text-xs-right">{{ props.item.user.name }}</td>
-        <td class="text-xs-right">{{ props.item.user.driving_license }}</td>
-        <td class="text-xs-right">{{ props.item.car_info.vin_code }}</td>
-        <td class="text-xs-right">{{ props.item.start_date }}-{{ props.item.end_date }}</td>
-        <td class="text-xs-right">{{ props.item.hash }}</td>
+        <td>{{ props.item.user.name }}</td>
+        <td>{{ props.item.user.driving_license }}</td>
+        <td>{{ props.item.car_info.vin_code }}</td>
+        <td>{{ props.item.start_date }}-{{ props.item.end_date }}</td>
+        <td>{{ props.item.hash }}</td>
       </tr>
     </template>
   </v-data-table>

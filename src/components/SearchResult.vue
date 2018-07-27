@@ -1,23 +1,37 @@
 <template>
 <div>
-<div v-if="show_cond == 0" class="display-3 text-lg-center">
+<div v-if="show_cond == 0" class="display-1 text-lg-center">
   {{ $t("message.loading") }}
 </div>
-<v-layout row wrap v-else-if="show_cond == 1" class="body-1">
+<div v-else-if="show_cond == 1" class="body-1">
+  <v-container fluid>
 
-  <b-table striped hover responsive :items="tableData" :fields="fields" @row-clicked="viewDetail">
-    <template slot="index" slot-scope="data">
-      {{ data.index + 1 }}
-    </template>
-    <template slot="duration" slot-scope="data">
-      {{ data.item.start_date }}---{{ data.item.end_date }}
-    </template>
-    <template slot="hash" slot-scope="data">
-      <div v-if="data.item.hash=='' || data.item.hash==undefined">
+  <v-layout row wrap class='headline'>
+    <v-spacer></v-spacer>
+    <v-flex class="text-lg-center">
+      {{ $t("message.tx_list") }}
+    </v-flex>
+    <v-spacer></v-spacer>
+  </v-layout>
+
+  <v-data-table hide-actions
+        :headers="fields"
+        :items="tableData"
+        :loading="loading"
+        class="elevation-1 mt-2">
+    <template slot="items" slot-scope="data">
+      <tr class="text-xs-left table_tr" @click="viewDetail(data.item.ubi_code)">
+        <td>{{ data.item.ubi_code }}</td>
+        <td>{{ data.item.user.name }}</td>
+        <td>{{ data.item.user.driving_license }}</td>
+        <td>{{ data.item.car_info.vin_code }}</td>
+        <td>{{ data.item.start_date }}-{{ data.item.end_date }}</td>
+        <td>
+          <div v-if="data.item.hash=='' || data.item.hash==undefined">
           {{ $t("message.empty_hash") }}
-        </div>
-        <div v-else>
-          <div>
+      </div>
+      <div v-else>
+        <div>
           <a :href="ipfs_addr + '/ipfs/' + data.item.hash">{{ ipfs_addr }}/ipfs/{{ data.item.hash }}
           </a>
         </div>
@@ -29,12 +43,13 @@
           <a :href="'http://ipfs.io/ipfs/' + data.item.hash">http://ipfs.io/ipfs/{{ data.item.hash }}
           </a>
         </div>
-        </div>
+      </div>
+        </td>
+      </tr>
     </template>
-  </b-table>
-  </v-layout>
+  </v-data-table>
 
-  <v-layout row wrap>
+  <v-layout row wrap class="mt-2">
     <v-spacer></v-spacer>
     <v-flex class="text-lg-right">
       <b-select style="width:70px" @change="handleSizeChange" v-model="page_size" :options="page_sizes" />
@@ -52,10 +67,17 @@
     <v-btn dark @click="onBack">{{ $t("message.Back") }}</v-btn>
     <v-spacer></v-spacer>
   </v-layout>
+  </v-container>
+</div>
 </div>
 </template>
 
 <style scoped>
+
+.table_tr:hover {
+  cursor: pointer;
+}
+
 </style>
 
 <script>
@@ -65,38 +87,47 @@ import qs from "qs";
 import * as app_config from "@/config/app_config";
 export default {
   components: {},
-  computed: {fields: function() {
+  computed: { 
+    fields: function() {
         return [
         {
-          key : 'index',
-          label: this.$t("message.tbl_index")
+          value : 'ubi_code',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_ubi_code")
         },
         {
-          key : 'ubi_code',
-          label: this.$t("message.tbl_ubi_code")
+          value : 'user.name',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_name")
         },
         {
-          key : 'user.name',
-          label: this.$t("message.tbl_name")
+          value : 'user.driving_license',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_driving_license")
         },
         {
-          key : 'user.driving_license',
-          label: this.$t("message.tbl_driving_license")
+          value : 'car_info.vin_code',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_vincode")
         },
         {
-          key : 'car_info.vin_code',
-          label: this.$t("message.tbl_vincode")
+          value : 'duration',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_duration")
         },
         {
-          key : 'duration',
-          label: this.$t("message.tbl_duration")
-        },
-        {
-          key : 'hash',
-          label: this.$t("message.tbl_hash")
+          value : 'hash',
+          align: 'left',
+          sortable: false,
+          text: this.$t("message.tbl_hash")
         }
       ]
-      },
+    },
   },
   data() {
     return {
@@ -120,10 +151,8 @@ export default {
     $route: "fetchData"
   },
   methods: {
-    viewDetail(item, index, event) {
-      if (item != undefined && item.ubi_code != undefined) {
-        this.$router.push({ path: "/ubi_detail/" + item.ubi_code });
-      }
+    viewDetail(ubi_code) {
+      this.$router.push({ path: "/ubi_detail/" + ubi_code });
     },
     onSearch() {
       let self = this;

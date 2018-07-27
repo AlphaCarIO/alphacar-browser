@@ -1,9 +1,9 @@
 <template>
 <v-container>
-<div v-if="show_cond == 0" class="display-3 text-lg-center">
+<div v-if="show_cond == 0" class="display-1 text-lg-center">
   {{ $t("message.loading") }}
 </div>
-<div v-else-if="show_cond == 1" class="display-3 text-lg-center">
+<div v-else-if="show_cond == 1" class="display-1 text-lg-center">
 {{ $t("message.no_ubi_info") }}
 </div>
 <div v-else-if="show_cond == 2" class="body-1">

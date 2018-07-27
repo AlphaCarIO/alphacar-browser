@@ -1,37 +1,35 @@
 <template>
 <div v-if="loading" class="display-3 text-lg-center">{{ $t("message.loading") }}</div>
-<div v-else v-bind:class="['content', price_color]">
-ETH_USDT {{ $t("message.quote_last") }}:{{ eth_price }}
-<div class='small_content'>
-  {{ $t("message.quote_percentChange") }} :{{ percentChange }}%
-</div>
-<div class='small_content2'>
-  {{ $t("message.quote_baseVolume") }}:{{ baseVolume }}
-</div>
-<div class='small_content2'>
-  {{ $t("message.quote_high24hr") }}:{{ high24hr }}&nbsp;&nbsp;&nbsp;{{ $t("message.quote_low24hr") }}:{{ low24hr }}
-</div>
+<div v-else v-bind:class="['display-1 text-lg-left', price_color]">
+  <v-layout row wrap class="font-weight-black font-italic black--text">
+    ETH/USDT
+  </v-layout>
+  <v-divider/>
+  <v-layout row wrap align-baseline>
+    <v-flex>
+      {{ $t("message.quote_last") }}:&nbsp;{{ eth_price }}
+    </v-flex>
+    <v-flex class='caption'>
+      {{ $t("message.quote_percentChange") }}:&nbsp;{{ percentChange }}%
+    </v-flex>
+  </v-layout>
+  <v-divider/>
+  <v-layout row wrap class='subheading'>
+    {{ $t("message.quote_baseVolume") }}:&nbsp;{{ baseVolume }}
+  </v-layout>
+  <v-divider/>
+  <v-layout row wrap class='subheading'>
+    <v-flex :class='high_color'>
+    {{ $t("message.quote_high24hr") }}:&nbsp;{{ high24hr }}
+    </v-flex>
+    <v-flex :class='low_color'>
+      {{ $t("message.quote_low24hr") }}:&nbsp;{{ low24hr }}
+    </v-flex>
+  </v-layout>
 </div>
 </template>
 
 <style scoped>
-
-.content {
-  padding-top: 30px;
-  font-size: 30px;
-  width: 100%;
-  height: 250px;
-  text-align: left;
-}
-
-.small_content {
-  font-size: 18px;
-}
-
-.small_content2 {
-  color: #000000;
-  font-size: 18px;
-}
 
 .whiteColor {
   color: #ffffff;
@@ -53,6 +51,24 @@ import qs from "qs";
 export default {
   components: {},
   computed: {
+    high_color: function() {
+      let color = "red--text";
+      
+      if (this.$i18n.locale == "en") {
+        color = "green--text";
+      }
+      
+      return color;
+    },
+    low_color: function() {
+      let color = "green--text";
+      
+      if (this.$i18n.locale == "en") {
+        color = "red--text";
+      }
+      
+      return color;
+    },
     price_color: function() {
       let color = "whiteColor";
 
