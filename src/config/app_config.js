@@ -1,6 +1,6 @@
-let ipfs_server_addr = process.env.IPFS_URL;
+const ipfs_server_addr = process.env.IPFS_URL;
 
-let axios_conf = {
+const axios_conf = {
     baseURL: process.env.BASE_URL,
     headers:{
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -10,7 +10,7 @@ let axios_conf = {
     timeout: 10000,
 };
 
-module.exports = {
+export default {
     ipfs_server_addr,
     axios_conf,
 }

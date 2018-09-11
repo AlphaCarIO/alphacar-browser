@@ -3,7 +3,7 @@ const ON_PAGE_CHANGE = "ON_PAGE_CHANGE";
 const ON_NATION_CHANGE = 'ON_NATION_CHANGE';
 const DO_SEARCH = "HAS_ERROR";
 
-module.exports = {
+export default {
     ON_PAGE_SIZE_CHANGE,
     ON_PAGE_CHANGE,
     ON_NATION_CHANGE,
