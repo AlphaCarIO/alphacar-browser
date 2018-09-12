@@ -74,9 +74,8 @@
 
 <script>
 import bus from "@/utils/event";
-import * as cc from "@/config/constants";
 import qs from "qs";
-import * as app_config from "@/config/app_config";
+import {ipfs_server_addr} from "@/config/app_config";
 
 export default {
   components: {},
@@ -84,7 +83,7 @@ export default {
 
   data() {
     return {
-      ipfs_addr: app_config.ipfs_server_addr,
+      ipfs_addr: ipfs_server_addr,
       ubi_code: "",
       name: "",
       driving_license: "",

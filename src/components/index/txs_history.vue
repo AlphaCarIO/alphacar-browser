@@ -19,7 +19,6 @@
 
 <script>
   import bus from "@/utils/event";
-  import * as cc from "@/config/constants"
   import moment from 'moment'
   import echarts from 'echarts'
 

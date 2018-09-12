@@ -10,7 +10,7 @@ const axios_conf = {
     timeout: 10000,
 };
 
-export default {
+export {
     ipfs_server_addr,
     axios_conf,
 }

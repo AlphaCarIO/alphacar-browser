@@ -29,7 +29,6 @@
 </style>
 <script>
 import bus from "@/utils/event";
-import * as cc from "@/config/constants";
 import qs from "qs";
 
 export default {

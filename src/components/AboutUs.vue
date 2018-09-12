@@ -21,9 +21,7 @@
 
 <script>
 import bus from "@/utils/event";
-import * as cc from "@/config/constants";
 import qs from "qs";
-import * as app_config from "@/config/app_config";
 
 export default {
   components: {},

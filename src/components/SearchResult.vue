@@ -82,9 +82,9 @@
 
 <script>
 import bus from "@/utils/event";
-import * as cc from "@/config/constants";
 import qs from "qs";
-import * as app_config from "@/config/app_config";
+import {ipfs_server_addr} from "@/config/app_config";
+
 export default {
   components: {},
   computed: { 
@@ -131,7 +131,7 @@ export default {
   },
   data() {
     return {
-      ipfs_addr: app_config.ipfs_server_addr,
+      ipfs_addr: ipfs_server_addr,
       total_count: 0,
       greeting_msg: "",
       tableData: [],
@@ -170,15 +170,10 @@ export default {
     handleSizeChange(val) {
       this.page_size = val;
       this.page = 1;
-      /*
-      bus.$emit(cc.ON_PAGE_CHANGE, this.page);
-      bus.$emit(cc.ON_PAGE_SIZE_CHANGE, val);
-      */
       this.onSearch();
     },
     handleCurrentChange(val) {
       this.page = val;
-      //bus.$emit(cc.ON_PAGE_CHANGE, val);
       this.onSearch();
     },
     fetchData() {

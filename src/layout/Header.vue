@@ -129,7 +129,7 @@
 
 <script>
 import bus from "@/utils/event";
-import * as cc from "@/config/constants"
+import { ON_PAGE_SIZE_CHANGE, ON_PAGE_CHANGE, ON_NATION_CHANGE } from "@/config/constants";
 
 export default {
   name: "Header",
@@ -204,11 +204,11 @@ export default {
   },
   mounted() {
 
-    bus.$on(cc.ON_PAGE_SIZE_CHANGE, (new_page_size) => {
+    bus.$on(ON_PAGE_SIZE_CHANGE, (new_page_size) => {
       this.page_size = new_page_size;
     })
     
-    bus.$on(cc.ON_PAGE_CHANGE, (new_page) => {
+    bus.$on(ON_PAGE_CHANGE, (new_page) => {
       this.page = new_page;
     })
 
@@ -224,7 +224,7 @@ export default {
       console.log(val)
       this.$i18n.locale = val;
       this.$store.dispatch('setLang', this.lang);
-      bus.$emit(cc.ON_NATION_CHANGE, null);
+      bus.$emit(ON_NATION_CHANGE, null);
     },
 
     onKeyPress: function(ev) {

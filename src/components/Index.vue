@@ -21,7 +21,6 @@
 
 <script>
 import bus from "@/utils/event";
-import * as cc from "@/config/constants";
 
 import token_price from "@/components/index/token_price.vue";
 import txs_history from "@/components/index/txs_history.vue";
