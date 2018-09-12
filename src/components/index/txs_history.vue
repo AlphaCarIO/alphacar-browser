@@ -19,6 +19,7 @@
 
 <script>
   import bus from "@/utils/event";
+  import { ON_NATION_CHANGE } from "@/config/constants";
   import moment from 'moment'
   import echarts from 'echarts'
 
@@ -137,7 +138,7 @@
       this.$nextTick(function () {
       })
 
-      bus.$on(cc.ON_NATION_CHANGE, (data) => {
+      bus.$on(ON_NATION_CHANGE, (data) => {
         self.InitChartOption();
       })
     }
