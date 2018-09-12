@@ -7,7 +7,7 @@ const axios_conf = {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Headers": "Authorization,Origin, X-Requested-With, Content-Type, Accept"
     },
-    timeout: 10000,
+    timeout: process.env.TIMEOUT,
 };
 
 export {
