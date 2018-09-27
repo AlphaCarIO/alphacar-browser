@@ -131,6 +131,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       ipfs_addr: ipfs_server_addr,
       total_count: 0,
       greeting_msg: "",

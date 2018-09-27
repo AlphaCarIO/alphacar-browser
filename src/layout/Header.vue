@@ -144,10 +144,10 @@ export default {
         { lvl:1, text: this.$t("message.menu_token"), url: '/token' },
         { lvl:1, text: this.$t("message.menu_transaction"), 
           url: '/search?search_type=0&search_txt=&page=1&page_size=5' },
-        { lvl:2, text: this.$t("message.menu_game"), 
+        /*{ lvl:2, text: this.$t("message.menu_game"), 
           sub_items: [ 
             { text: this.$t("message.menu_game_car_snap"), url: '/car_snap' },
-          ] },
+          ] },*/
         { lvl:1, text: this.$t("message.menu_about_us"), 
           url: '/about_us' },
       ]
@@ -187,12 +187,12 @@ export default {
         {
           value: "cn",
           text: "简体中文",
-          avatar: "static/img/CN2x.png",
+          avatar: "static/img/CN.png",
         },
         {
           value: "en",
           text: "EN",
-          avatar: "static/img/US2x.png",
+          avatar: "static/img/US.png",
         },
       ],
       search_txt: "",

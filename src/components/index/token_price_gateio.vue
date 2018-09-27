@@ -2,28 +2,28 @@
 <div v-if="loading" class="display-3 text-lg-center">{{ $t("message.loading") }}</div>
 <div v-else v-bind:class="['display-1 text-lg-left', price_color]">
   <v-layout row wrap class="font-weight-black font-italic black--text">
-    ACAR/CNYT
+    ETH/USDT
   </v-layout>
   <v-divider/>
   <v-layout row wrap align-baseline>
     <v-flex>
-      {{ $t("message.quote_last") }}:&nbsp;{{ price }}
+      {{ $t("message.quote_last") }}:&nbsp;{{ eth_price }}
     </v-flex>
     <v-flex class='caption'>
-      {{ $t("message.quote_percentChange") }}:&nbsp;{{ daily_change }}%
+      {{ $t("message.quote_percentChange") }}:&nbsp;{{ percentChange }}%
     </v-flex>
   </v-layout>
   <v-divider/>
   <v-layout row wrap class='subheading'>
-    {{ $t("message.quote_baseVolume") }}:&nbsp;{{ volume }}
+    {{ $t("message.quote_baseVolume") }}:&nbsp;{{ baseVolume }}
   </v-layout>
   <v-divider/>
   <v-layout row wrap class='subheading'>
     <v-flex :class='high_color'>
-    {{ $t("message.quote_high24hr") }}:&nbsp;{{ high }}
+    {{ $t("message.quote_high24hr") }}:&nbsp;{{ high24hr }}
     </v-flex>
     <v-flex :class='low_color'>
-      {{ $t("message.quote_low24hr") }}:&nbsp;{{ low }}
+      {{ $t("message.quote_low24hr") }}:&nbsp;{{ low24hr }}
     </v-flex>
   </v-layout>
 </div>
@@ -31,8 +31,8 @@
 
 <style scoped>
 
-.flatColor {
-  color: #252525;
+.whiteColor {
+  color: #ffffff;
 }
 
 .redColor {
@@ -51,7 +51,6 @@ export default {
   components: {},
   computed: {
     high_color: function() {
-
       let color = "red--text";
       
       if (this.$i18n.locale == "en") {
@@ -70,7 +69,7 @@ export default {
       return color;
     },
     price_color: function() {
-      let color = "flatColor";
+      let color = "whiteColor";
 
       if (this.isUp == 1) {
         if (this.$i18n.locale == "cn") {
@@ -88,17 +87,34 @@ export default {
       
       return color;
     },
+    tbl_ubi_code: function() {
+      return this.$t("message.tbl_ubi_code");
+    },
+    tbl_name: function() {
+      return this.$t("message.tbl_name");
+    },
+    tbl_driving_license: function() {
+      return this.$t("message.tbl_driving_license");
+    },
+    tbl_vincode: function() {
+      return this.$t("message.tbl_vincode");
+    },
+    tbl_duration: function() {
+      return this.$t("message.tbl_duration");
+    },
+    tbl_hash: function() {
+      return this.$t("message.tbl_hash");
+    }
   },
   data() {
     return {
       isUp: 0,
-      price: "",
-      open: "",
-      high: "",
-      low: "",
-      volume: "",
-      daily_vol: "",
-      daily_change: "",
+      eth_price: "",
+      percentChange: "",
+      percentChange2: "",
+      baseVolume: "",
+      high24hr: "",
+      low24hr: "",
       loading: true
     };
   },
@@ -110,20 +126,18 @@ export default {
     fetchData() {
       let self = this;
 
-      //http://103.218.243.249/1.0/rest/market/ticker
-      self.$http.get("/api/tok/ticker/ACAR-CNYT").then(
+      //https://data.gateio.io/api2/1/ticker/eth_usdt
+      self.$http.get("/api/gateio/ticker/eth_usdt").then(
         response => {
           if (response.status == 200) {
-            self.price = response.data.data.last_price;
-            self.open = response.data.data.open;
-            self.high = response.data.data.high;
-            self.low = response.data.data.low;
-            self.volume = response.data.data.volume//.toFixed(4);
-            self.daily_vol = response.data.data.daily_vol;
-            self.daily_change = response.data.data.daily_change * 100//.toFixed(2);
-            if (self.daily_change == 0) {
+            self.eth_price = response.data.data.last;
+            self.baseVolume = response.data.data.baseVolume.toFixed(4);
+            self.high24hr = response.data.data.high24hr;
+            self.low24hr = response.data.data.low24hr;
+            self.percentChange = response.data.data.percentChange.toFixed(2);
+            if (self.percentChange == 0) {
               self.isUp = 0;
-            } else if (self.daily_change > 0) {
+            } else if (self.percentChange > 0) {
               self.isUp = 1;
             } else {
               self.isUp = -1;

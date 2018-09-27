@@ -35,10 +35,10 @@ export default new Router({
           path: '/about_us',
           component: AboutUs
         },
-        {
+        /*{
           path: '/car_snap',
           component: CarSnap
-        },
+        },*/
         {
           path: '/demo',
           component: SphereTracer
